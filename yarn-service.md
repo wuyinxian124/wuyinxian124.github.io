@@ -61,10 +61,11 @@ private static final boolean[][] statemap =
 ### 5. 如何使用
 我们将以Nodemanager 为例，看看service在yarn中的基本用法。  
 下图展示了Nodemanager 基于服务化的基本结构  
-NodeManager 是一个组合服务，其中还包括了NodeStatusUpdaterImpl，NodeStatusUpdaterImpl是一个单一服务
+NodeManager 是一个组合服务，其中还包括了NodeStatusUpdaterImpl，NodeStatusUpdaterImpl是一个单一服务  
  ![](.gitbook/assets/yarn-service1.png)
 
- NodeManager 启动过程如下： 先初始化NodeManager对象（因为nodeManager 继承了 AbstractService ，所以本身也是一个服务），接着调用service提供的两个方法
+NodeManager 启动过程如下：  
+先初始化NodeManager对象（因为nodeManager 继承了 AbstractService ，所以本身也是一个服务），接着调用service提供的两个方法
 
 ```java
 this.init(conf);
