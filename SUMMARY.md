@@ -6,4 +6,3 @@
   * [stateMachine](yarn-evnet/statemachine.md)
 * [提交app的过程](submit_app/README.md)
   * [client2rm](submit_app/client2rm.md)
-
