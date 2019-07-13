@@ -59,20 +59,24 @@ private static final boolean[][] statemap =
 ```
 
 ### 5. 如何使用
-
+我们将以Nodemanager 为例，看看service在yarn中的基本用法。  
 下图展示了Nodemanager 基于服务化的基本结构  
-NodeManager 是一个组合服务，其中还包括了NodeStatusUpdaterImpl，NodeStatusUpdaterImpl是一个单一服务 ![](.gitbook/assets/yarn-service1.png) NodeManager 启动过程如下： 先初始化NodeManager对象（因为nodeManager 继承了 AbstractService ，所以本身也是一个服务），接着调用service提供的两个方法
+NodeManager 是一个组合服务，其中还包括了NodeStatusUpdaterImpl，NodeStatusUpdaterImpl是一个单一服务
+ ![](.gitbook/assets/yarn-service1.png)
+
+ NodeManager 启动过程如下： 先初始化NodeManager对象（因为nodeManager 继承了 AbstractService ，所以本身也是一个服务），接着调用service提供的两个方法
 
 ```java
 this.init(conf);
 this.start();
 ```
 
-以init方法为例 init 实际调用的是AbstractService.init\(\)，而AbstractService.init\(\) 内部会调用serviceInit，因为AbstractService.serviceInit是一个抽象方法，实际执行的是NodeManager.serviceInit\(\).在NodeManager.serviceInit方法中会执行addService方法接入其他server ，并最后调用super.serviceInit\(conf\);方法来触发通过addService方法添加的service执行serviceInit
+以init方法为例 init 实际调用的是AbstractService.init\(\)，而AbstractService.init\(\) 内部会调用serviceInit，因为AbstractService.serviceInit是一个抽象方法，实际执行的是NodeManager.serviceInit\(\).在NodeManager.serviceInit方法中会执行addService方法加入的其他service ，并最后调用super.serviceInit\(conf\);方法来触发通过addService方法添加的service执行serviceInit
 
 **值得注意的是** 1. AbstractService 虽然提供了两个监听器集合 listeners和globalListeners。但globalListeners 到目前还没有用到。 2. CompositeService 通过addService方法和addIfService方法 向组合服务中添加服务，通过removeService方法移除服务。这些方法皆是线程安全的
 
 yarn 服务化概览  
-整个yarn 中有48个服务,nodeManger 有组合服务4个,可以看出service yarn中一个很重要的业务抽象 ![](.gitbook/assets/yarn-service3.png)
+整个yarn 中有48个service，组合为4个组合服务。从中可以看出service是yarn中一个很重要的业务抽象
+ ![](.gitbook/assets/yarn-service3.png)
 
 ![](.gitbook/assets/yarn-service4.png)
