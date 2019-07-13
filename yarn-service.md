@@ -1,6 +1,9 @@
-# yarn service 分析
+---
+description:
+ yarn 将生命周期较长的对象，用基于服务化的模式管理。服务化并不是将服务线程化或者是进程化，亦或者是docker化，它可以简单的理解为一种
+---
 
-description: &gt;- yarn 将生命周期较长的对象，用基于服务化的模式管理。服务化并不是将服务线程化或者是进程化，亦或者是docker化，它可以简单的理解为一种
+# yarn service 分析
 
 ## 管理生命周期的抽象方式。
 
@@ -75,4 +78,3 @@ yarn 服务化概览
 整个yarn 中有48个服务,nodeManger 有组合服务4个,可以看出service yarn中一个很重要的业务抽象 ![](.gitbook/assets/yarn-service3.png)
 
 ![](.gitbook/assets/yarn-service4.png)
-
