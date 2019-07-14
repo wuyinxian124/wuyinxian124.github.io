@@ -39,14 +39,14 @@ handler.handle(event);
 
 ### 4. 中央异步调度器使用例子
 下面以 NodeManager 为例，看看 AsyncDispatcher 如何使用  
-1. 中央异步调度器初始化   
-  1.1 NodeManager启动      
+#### 4.1 中央异步调度器初始化   
+  1. NodeManager启动      
 NodeManager 启动脚本 bin/yarn 启动脚步指定了 YARN 入口 class  
 ```java
 CLASS='org.apache.hadoop.yarn.server.nodemanager.NodeManager'，
 ```
 NodeManager.main() 入口函数调用 nodeManager.initAndStartNodeManager(conf, false);  
-  1.2 创建中央异步调度器  
+  2. 创建中央异步调度器  
 nodeManager.initAndStartNodeManager 会调用 this.init(conf)   
 通过前文 [YARN 服务化](../yarn-service.md) 可知，this.init(conf) 最终调用的是 NodeManager 重写的 serviceInit() 方法。   
 在 NodeManager.serviceInit(Configuration conf) 方法中
@@ -54,13 +54,14 @@ nodeManager.initAndStartNodeManager 会调用 this.init(conf)
 ```
 this.dispatcher = new AsyncDispatcher();
 ```
-2. 注册事件和对应handler  
-  2.1 注册事件和对应处理  
+
+#### 4.2 注册事件和对应handler  
+  1. 注册事件和对应处理  
 ```
 dispatcher.register(ContainerManagerEventType.class, containerManager);
 dispatcher.register(NodeManagerEventType.class, this);
 ```
-  2.1 事件处理核心逻辑  
+  2. 事件处理核心逻辑  
 ContainerManagerEventType 事件类型对应的处理（containerManager）的处理逻辑：
 ```java
   @Override
@@ -108,7 +109,7 @@ public void handle(NodeManagerEvent event) {
     }
   }
 ```
-3. 生成事件  
+#### 4.3 生成事件  
 上面说了中央异步处理模型，并解释了是如何注册事件和事件处理，下面说说是如何生成事件。   
 NodeManager 在 serviceInit() 方法中会通过 createNodeStatusUpdater() 初始化一个 NodeStatusUpdaterImpl 服务。  
 该服务在启动过程中（执行 serviceStart 方法）会调用 startStatusUpdater 方法，该方法会新建一个线程“ Node Status Updater”。  

@@ -43,64 +43,70 @@ handler.handle(event);</code></pre>
 </ol>
 <h3 id="4-">4. &#x4E2D;&#x592E;&#x5F02;&#x6B65;&#x8C03;&#x5EA6;&#x5668;&#x4F7F;&#x7528;&#x4F8B;&#x5B50;</h3>
 <p>&#x4E0B;&#x9762;&#x4EE5; NodeManager &#x4E3A;&#x4F8B;&#xFF0C;&#x770B;&#x770B; AsyncDispatcher &#x5982;&#x4F55;&#x4F7F;&#x7528;  </p>
+<h4 id="4-1-">4.1 &#x4E2D;&#x592E;&#x5F02;&#x6B65;&#x8C03;&#x5EA6;&#x5668;&#x521D;&#x59CB;&#x5316;</h4>
 <ol>
-<li>&#x4E2D;&#x592E;&#x5F02;&#x6B65;&#x8C03;&#x5EA6;&#x5668;&#x521D;&#x59CB;&#x5316;<br>1.1 NodeManager&#x542F;&#x52A8;<br>NodeManager &#x542F;&#x52A8;&#x811A;&#x672C; bin/yarn &#x542F;&#x52A8;&#x811A;&#x6B65;&#x6307;&#x5B9A;&#x4E86; YARN &#x5165;&#x53E3; class  <pre><code class="language-java">CLASS=&apos;org.apache.hadoop.yarn.server.nodemanager.NodeManager&apos;&#xFF0C;</code></pre>
-NodeManager.main() &#x5165;&#x53E3;&#x51FD;&#x6570;&#x8C03;&#x7528; nodeManager.initAndStartNodeManager(conf, false);<br>1.2 &#x521B;&#x5EFA;&#x4E2D;&#x592E;&#x5F02;&#x6B65;&#x8C03;&#x5EA6;&#x5668;<br>nodeManager.initAndStartNodeManager &#x4F1A;&#x8C03;&#x7528; this.init(conf)<br>&#x901A;&#x8FC7;&#x524D;&#x6587; <a href="../yarn-service.md">YARN &#x670D;&#x52A1;&#x5316;</a> &#x53EF;&#x77E5;&#xFF0C;this.init(conf) &#x6700;&#x7EC8;&#x8C03;&#x7528;&#x7684;&#x662F; NodeManager &#x91CD;&#x5199;&#x7684; serviceInit() &#x65B9;&#x6CD5;&#x3002;<br>&#x5728; NodeManager.serviceInit(Configuration conf) &#x65B9;&#x6CD5;&#x4E2D;
+<li>NodeManager&#x542F;&#x52A8;<br>NodeManager &#x542F;&#x52A8;&#x811A;&#x672C; bin/yarn &#x542F;&#x52A8;&#x811A;&#x6B65;&#x6307;&#x5B9A;&#x4E86; YARN &#x5165;&#x53E3; class  <pre><code class="language-java">CLASS=&apos;org.apache.hadoop.yarn.server.nodemanager.NodeManager&apos;&#xFF0C;</code></pre>
+NodeManager.main() &#x5165;&#x53E3;&#x51FD;&#x6570;&#x8C03;&#x7528; nodeManager.initAndStartNodeManager(conf, false);  </li>
+<li>&#x521B;&#x5EFA;&#x4E2D;&#x592E;&#x5F02;&#x6B65;&#x8C03;&#x5EA6;&#x5668;<br>nodeManager.initAndStartNodeManager &#x4F1A;&#x8C03;&#x7528; this.init(conf)<br>&#x901A;&#x8FC7;&#x524D;&#x6587; <a href="../yarn-service.md">YARN &#x670D;&#x52A1;&#x5316;</a> &#x53EF;&#x77E5;&#xFF0C;this.init(conf) &#x6700;&#x7EC8;&#x8C03;&#x7528;&#x7684;&#x662F; NodeManager &#x91CD;&#x5199;&#x7684; serviceInit() &#x65B9;&#x6CD5;&#x3002;<br>&#x5728; NodeManager.serviceInit(Configuration conf) &#x65B9;&#x6CD5;&#x4E2D;
 &#x521D;&#x59CB;&#x5316;&#x4E86;&#x4E2D;&#x592E;&#x5F02;&#x6B65;&#x5904;&#x7406;&#x5668;<pre><code>this.dispatcher = new AsyncDispatcher();</code></pre></li>
-<li>&#x6CE8;&#x518C;&#x4E8B;&#x4EF6;&#x548C;&#x5BF9;&#x5E94;handler<br>2.1 &#x6CE8;&#x518C;&#x4E8B;&#x4EF6;&#x548C;&#x5BF9;&#x5E94;&#x5904;&#x7406;  <pre><code>dispatcher.register(ContainerManagerEventType.class, containerManager);
-dispatcher.register(NodeManagerEventType.class, this);</code></pre>2.1 &#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x6838;&#x5FC3;&#x903B;&#x8F91;<br>ContainerManagerEventType &#x4E8B;&#x4EF6;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x7684;&#x5904;&#x7406;&#xFF08;containerManager&#xFF09;&#x7684;&#x5904;&#x7406;&#x903B;&#x8F91;&#xFF1A;<pre><code class="language-java">@Override
+</ol>
+<h4 id="4-2-handler">4.2 &#x6CE8;&#x518C;&#x4E8B;&#x4EF6;&#x548C;&#x5BF9;&#x5E94;handler</h4>
+<ol>
+<li>&#x6CE8;&#x518C;&#x4E8B;&#x4EF6;&#x548C;&#x5BF9;&#x5E94;&#x5904;&#x7406;  <pre><code>dispatcher.register(ContainerManagerEventType.class, containerManager);
+dispatcher.register(NodeManagerEventType.class, this);</code></pre></li>
+<li>&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x6838;&#x5FC3;&#x903B;&#x8F91;<br>ContainerManagerEventType &#x4E8B;&#x4EF6;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x7684;&#x5904;&#x7406;&#xFF08;containerManager&#xFF09;&#x7684;&#x5904;&#x7406;&#x903B;&#x8F91;&#xFF1A;<pre><code class="language-java">@Override
 public void handle(ContainerManagerEvent event) {
- switch (event.getType()) {
- case FINISH_APPS:
-   CMgrCompletedAppsEvent appsFinishedEvent =
-       (CMgrCompletedAppsEvent) event;
-   for (ApplicationId appID : appsFinishedEvent.getAppsToCleanup()) {
-     .......
-     this.dispatcher.getEventHandler().handle(
-         new ApplicationFinishEvent(appID,
-             diagnostic));
-   }
-   break;
- case FINISH_CONTAINERS:
-   CMgrCompletedContainersEvent containersFinishedEvent =
-       (CMgrCompletedContainersEvent) event;
-   for (ContainerId container : containersFinishedEvent
-       .getContainersToCleanup()) {
-       this.dispatcher.getEventHandler().handle(
-           new ContainerKillEvent(container,
-               ContainerExitStatus.KILLED_BY_RESOURCEMANAGER,
-               &quot;Container Killed by ResourceManager&quot;));
-   }
-   break;
- default:
-     throw new YarnRuntimeException(
-         &quot;Got an unknown ContainerManagerEvent type: &quot; + event.getType());
+switch (event.getType()) {
+case FINISH_APPS:
+ CMgrCompletedAppsEvent appsFinishedEvent =
+     (CMgrCompletedAppsEvent) event;
+ for (ApplicationId appID : appsFinishedEvent.getAppsToCleanup()) {
+   .......
+   this.dispatcher.getEventHandler().handle(
+       new ApplicationFinishEvent(appID,
+           diagnostic));
  }
+ break;
+case FINISH_CONTAINERS:
+ CMgrCompletedContainersEvent containersFinishedEvent =
+     (CMgrCompletedContainersEvent) event;
+ for (ContainerId container : containersFinishedEvent
+     .getContainersToCleanup()) {
+     this.dispatcher.getEventHandler().handle(
+         new ContainerKillEvent(container,
+             ContainerExitStatus.KILLED_BY_RESOURCEMANAGER,
+             &quot;Container Killed by ResourceManager&quot;));
+ }
+ break;
+default:
+   throw new YarnRuntimeException(
+       &quot;Got an unknown ContainerManagerEvent type: &quot; + event.getType());
+}
 }</code></pre>
 NodeManagerEventType &#x4E8B;&#x4EF6;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x7684;&#x5904;&#x7406;&#xFF08;this&#xFF09;&#x7684;&#x5904;&#x7406;&#x903B;&#x8F91;&#xFF1A;  <pre><code class="language-java">public void handle(NodeManagerEvent event) {
- switch (event.getType()) {
- case SHUTDOWN:
-   shutDown();
-   break;
- case RESYNC:
-   resyncWithRM();
-   break;
- default:
-   LOG.warn(&quot;Invalid shutdown event &quot; + event.getType() + &quot;. Ignoring.&quot;);
- }
+switch (event.getType()) {
+case SHUTDOWN:
+ shutDown();
+ break;
+case RESYNC:
+ resyncWithRM();
+ break;
+default:
+ LOG.warn(&quot;Invalid shutdown event &quot; + event.getType() + &quot;. Ignoring.&quot;);
+}
 }</code></pre>
-</li>
-<li>&#x751F;&#x6210;&#x4E8B;&#x4EF6;<br>&#x4E0A;&#x9762;&#x8BF4;&#x4E86;&#x4E2D;&#x592E;&#x5F02;&#x6B65;&#x5904;&#x7406;&#x6A21;&#x578B;&#xFF0C;&#x5E76;&#x89E3;&#x91CA;&#x4E86;&#x662F;&#x5982;&#x4F55;&#x6CE8;&#x518C;&#x4E8B;&#x4EF6;&#x548C;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#xFF0C;&#x4E0B;&#x9762;&#x8BF4;&#x8BF4;&#x662F;&#x5982;&#x4F55;&#x751F;&#x6210;&#x4E8B;&#x4EF6;&#x3002;<br>NodeManager &#x5728; serviceInit() &#x65B9;&#x6CD5;&#x4E2D;&#x4F1A;&#x901A;&#x8FC7; createNodeStatusUpdater() &#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A; NodeStatusUpdaterImpl &#x670D;&#x52A1;&#x3002;<br>&#x8BE5;&#x670D;&#x52A1;&#x5728;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF08;&#x6267;&#x884C; serviceStart &#x65B9;&#x6CD5;&#xFF09;&#x4F1A;&#x8C03;&#x7528; startStatusUpdater &#x65B9;&#x6CD5;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x201C; Node Status Updater&#x201D;&#x3002;<br>&#x201D;Node Status Updater&#x201C; &#x4E0D;&#x65AD;&#x5FAA;&#x73AF;&#x5411; resourceManager &#x53D1;&#x9001;&#x5FC3;&#x8DF3;&#xFF0C;&#x5E76;&#x6839;&#x636E;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#xFF0C;&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x5C06;&#x76F8;&#x5173;&#x4E8B;&#x4EF6;&#x53D1;&#x7ED9;&#x4E2D;&#x592E;&#x5F02;&#x6B65;&#x5904;&#x7406;&#x5668;
+<h4 id="4-3-">4.3 &#x751F;&#x6210;&#x4E8B;&#x4EF6;</h4>
+&#x4E0A;&#x9762;&#x8BF4;&#x4E86;&#x4E2D;&#x592E;&#x5F02;&#x6B65;&#x5904;&#x7406;&#x6A21;&#x578B;&#xFF0C;&#x5E76;&#x89E3;&#x91CA;&#x4E86;&#x662F;&#x5982;&#x4F55;&#x6CE8;&#x518C;&#x4E8B;&#x4EF6;&#x548C;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#xFF0C;&#x4E0B;&#x9762;&#x8BF4;&#x8BF4;&#x662F;&#x5982;&#x4F55;&#x751F;&#x6210;&#x4E8B;&#x4EF6;&#x3002;<br>NodeManager &#x5728; serviceInit() &#x65B9;&#x6CD5;&#x4E2D;&#x4F1A;&#x901A;&#x8FC7; createNodeStatusUpdater() &#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A; NodeStatusUpdaterImpl &#x670D;&#x52A1;&#x3002;<br>&#x8BE5;&#x670D;&#x52A1;&#x5728;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF08;&#x6267;&#x884C; serviceStart &#x65B9;&#x6CD5;&#xFF09;&#x4F1A;&#x8C03;&#x7528; startStatusUpdater &#x65B9;&#x6CD5;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x201C; Node Status Updater&#x201D;&#x3002;<br>&#x201D;Node Status Updater&#x201C; &#x4E0D;&#x65AD;&#x5FAA;&#x73AF;&#x5411; resourceManager &#x53D1;&#x9001;&#x5FC3;&#x8DF3;&#xFF0C;&#x5E76;&#x6839;&#x636E;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#xFF0C;&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x5C06;&#x76F8;&#x5173;&#x4E8B;&#x4EF6;&#x53D1;&#x7ED9;&#x4E2D;&#x592E;&#x5F02;&#x6B65;&#x5904;&#x7406;&#x5668;
 &#x53D1;&#x9001;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;<pre><code class="language-java">if (response.getNodeAction() == NodeAction.SHUTDOWN) {
 ...
 dispatcher.getEventHandler().handle(
-   new NodeManagerEvent(NodeManagerEventType.SHUTDOWN));
+ new NodeManagerEvent(NodeManagerEventType.SHUTDOWN));
 break;
 }
 if (response.getNodeAction() == NodeAction.RESYNC) {
 ...
 dispatcher.getEventHandler().handle(
-   new NodeManagerEvent(NodeManagerEventType.RESYNC));
+ new NodeManagerEvent(NodeManagerEventType.RESYNC));
 pendingCompletedContainers.clear();
 break;
 }</code></pre>
