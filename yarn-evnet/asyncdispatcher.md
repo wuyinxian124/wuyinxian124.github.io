@@ -2,13 +2,13 @@
 
 ## 1. 什么是中央异步调度器
 
-中央异步调度器，主要协调不同状态机之间交流，是yarn中事件处理的核心。  
+中央异步调度器，主要协调不同状态机之间交流，是YARN中事件处理的核心。  
 事件处理跟事件，服务（状态）关系密切。 如下图所示，是一个状态机处理事件，以及不同状态机通过中央异步调度器交流的视图：  
 ![](../.gitbook/assets/dispatch1.png)
 
 ## 2. 中央异步调度器具体功能
 
-如果仅仅从事件处理角度来分析yarn 的事件处理模型可以概括为：  
+如果仅仅从事件处理角度来分析YARN 的事件处理模型可以概括为：  
 AsyncDispatcher（中央异步调度器）将对应的事件分发给事件处理器（handler）或状态机处理，并触发新的事件，直到没有新的事件产生。
 
 ## 3. 中央异步调度器内部实现
@@ -65,10 +65,10 @@ AsyncDispatcher 首先一个服务，然后是一个事件处理器。内部有�
 
 1. NodeManager启动      
 
-   NodeManager 启动脚本 bin/yarn 启动脚步指定了 YARN 入口 class  
+   NodeManager 启动脚本 bin/YARN 启动脚步指定了 YARN 入口 class  
 
    ```java
-   CLASS='org.apache.hadoop.yarn.server.nodemanager.NodeManager'，
+   CLASS='org.apache.hadoop.YARN.server.nodemanager.NodeManager'，
    ```
 
    NodeManager.main\(\) 入口函数调用 nodeManager.initAndStartNodeManager\(conf, false\);  
@@ -77,7 +77,7 @@ AsyncDispatcher 首先一个服务，然后是一个事件处理器。内部有�
 
    nodeManager.initAndStartNodeManager 会调用 this.init\(conf\)   
 
-   通过前文 [YARN 服务化](../yarn-service.md) 可知，this.init\(conf\) 最终调用的是 NodeManager 重写的 serviceInit\(\) 方法。   
+   通过前文 [YARN 服务化](../YARN-service.md) 可知，this.init\(conf\) 最终调用的是 NodeManager 重写的 serviceInit\(\) 方法。   
 
    在 NodeManager.serviceInit\(Configuration conf\) 方法中
 
@@ -126,7 +126,7 @@ AsyncDispatcher 首先一个服务，然后是一个事件处理器。内部有�
     }
     break;
    default:
-      throw new YarnRuntimeException(
+      throw new YARNRuntimeException(
           "Got an unknown ContainerManagerEvent type: " + event.getType());
    }
    }
@@ -176,4 +176,3 @@ AsyncDispatcher 首先一个服务，然后是一个事件处理器。内部有�
    break;
    }
    ```
-
