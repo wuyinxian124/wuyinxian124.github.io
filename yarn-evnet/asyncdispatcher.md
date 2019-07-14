@@ -38,7 +38,7 @@ handler.handle(event);
 为了能够处理写入缓存的异常情况，创建了 GenericEventHandler 对象。
 
 ### 4. 中央异步调度器使用例子
-下面以 NodeManager 为例，看看 AsyncDispatcher 如何使用
+下面以 NodeManager 为例，看看 AsyncDispatcher 如何使用  
 1. 中央异步调度器初始化   
   1.1 NodeManager启动      
 NodeManager 启动脚本 bin/yarn 启动脚步指定了 YARN 入口 class  
@@ -54,7 +54,7 @@ nodeManager.initAndStartNodeManager 会调用 this.init(conf)
 ```
 this.dispatcher = new AsyncDispatcher();
 ```
-2. 注册了事件和对应handler  
+2. 注册事件和对应handler  
   2.1 注册事件和对应处理  
 ```
 dispatcher.register(ContainerManagerEventType.class, containerManager);
