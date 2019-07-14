@@ -91,8 +91,19 @@ NodeManagerEventType &#x4E8B;&#x4EF6;&#x7C7B;&#x578B;&#x5BF9;&#x5E94;&#x7684;&#x
 }</code></pre>
 </li>
 <li>&#x751F;&#x6210;&#x4E8B;&#x4EF6;<br>&#x4E0A;&#x9762;&#x8BF4;&#x4E86;&#x4E2D;&#x592E;&#x5F02;&#x6B65;&#x5904;&#x7406;&#x6A21;&#x578B;&#xFF0C;&#x5E76;&#x89E3;&#x91CA;&#x4E86;&#x662F;&#x5982;&#x4F55;&#x6CE8;&#x518C;&#x4E8B;&#x4EF6;&#x548C;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#xFF0C;&#x4E0B;&#x9762;&#x8BF4;&#x8BF4;&#x662F;&#x5982;&#x4F55;&#x751F;&#x6210;&#x4E8B;&#x4EF6;&#x3002;<br>NodeManager &#x5728; serviceInit() &#x65B9;&#x6CD5;&#x4E2D;&#x4F1A;&#x901A;&#x8FC7; createNodeStatusUpdater() &#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A; NodeStatusUpdaterImpl &#x670D;&#x52A1;&#x3002;<br>&#x8BE5;&#x670D;&#x52A1;&#x5728;&#x542F;&#x52A8;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF08;&#x6267;&#x884C; serviceStart &#x65B9;&#x6CD5;&#xFF09;&#x4F1A;&#x8C03;&#x7528; startStatusUpdater &#x65B9;&#x6CD5;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x4F1A;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x201C; Node Status Updater&#x201D;&#x3002;<br>&#x201D;Node Status Updater&#x201C; &#x4E0D;&#x65AD;&#x5FAA;&#x73AF;&#x5411; resourceManager &#x53D1;&#x9001;&#x5FC3;&#x8DF3;&#xFF0C;&#x5E76;&#x6839;&#x636E;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#xFF0C;&#x51B3;&#x5B9A;&#x662F;&#x5426;&#x5C06;&#x76F8;&#x5173;&#x4E8B;&#x4EF6;&#x53D1;&#x7ED9;&#x4E2D;&#x592E;&#x5F02;&#x6B65;&#x5904;&#x7406;&#x5668;
-&#x53D1;&#x9001;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;<pre><code class="language-java">dispatcher.getEventHandler().handle(
-     new NodeManagerEvent(NodeManagerEventType.SHUTDOWN));</code></pre>
+&#x53D1;&#x9001;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;<pre><code class="language-java">if (response.getNodeAction() == NodeAction.SHUTDOWN) {
+...
+dispatcher.getEventHandler().handle(
+   new NodeManagerEvent(NodeManagerEventType.SHUTDOWN));
+break;
+}
+if (response.getNodeAction() == NodeAction.RESYNC) {
+...
+dispatcher.getEventHandler().handle(
+   new NodeManagerEvent(NodeManagerEventType.RESYNC));
+pendingCompletedContainers.clear();
+break;
+}</code></pre>
 </li>
 </ol>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">

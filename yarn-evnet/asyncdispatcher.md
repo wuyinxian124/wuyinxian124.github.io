@@ -115,6 +115,17 @@ NodeManager 在 serviceInit() 方法中会通过 createNodeStatusUpdater() 初�
 ”Node Status Updater“ 不断循环向 resourceManager 发送心跳，并根据返回结果，决定是否将相关事件发给中央异步处理器
 发送方式如下：
 ```java
-dispatcher.getEventHandler().handle(
-        new NodeManagerEvent(NodeManagerEventType.SHUTDOWN));
+if (response.getNodeAction() == NodeAction.SHUTDOWN) {
+...
+  dispatcher.getEventHandler().handle(
+      new NodeManagerEvent(NodeManagerEventType.SHUTDOWN));
+  break;
+}
+if (response.getNodeAction() == NodeAction.RESYNC) {
+...
+  dispatcher.getEventHandler().handle(
+      new NodeManagerEvent(NodeManagerEventType.RESYNC));
+  pendingCompletedContainers.clear();
+  break;
+}
 ```
