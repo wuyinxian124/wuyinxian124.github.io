@@ -1,20 +1,21 @@
 ---
-description:
- yarn 将生命周期较长的对象，用基于服务化的模式管理。服务化并不是将服务线程化或者是进程化，亦或者是docker化，它可以简单的理解为一种管理生命周期的抽象方式。
+description: >-
+  yarn
+  将生命周期较长的对象，用基于服务化的模式管理。服务化并不是将服务线程化或者是进程化，亦或者是docker化，它可以简单的理解为一种管理生命周期的抽象方式。
 ---
 
 # yarn service 分析
 
-### 1. 什么是服务化
+## 1. 什么是服务化
 
 yarn 将生命周期较长的对象，用基于服务化的模式管理。  
 服务化并不是将服务线程化或者是进程化，亦或者是docker化，它可以简单的理解为：一种管理生命周期的方式。
 
-#### 2. 服务化的基本结构
+### 2. 服务化的基本结构
 
 服务化的架构很简单，就是一个接口\(Service\)和一个抽象类\(AbstractService\)以及一个组合服务\(AbstractService\)。 （对任意服务进行组合就是组合服务）
 
-### 3. 服务化基本操作
+## 3. 服务化基本操作
 
 service 提供基本的操作接口  
 比如init,start,stop  
@@ -25,7 +26,7 @@ AbstractService 实现了service接口，并向外提供了更多操作
 
 组合服务CompositeService 实际就是在CompositeService 内部维护一个List serviceList 集合，并继承AbstractService。也即是说组合服务本身也是一个服务，这个服务同时维护着多个服务。
 
-### 4. 服务状态维护
+## 4. 服务状态维护
 
 每个服务除了对应操作还有对应的状态,状态列表如下所示：
 
@@ -58,11 +59,12 @@ private static final boolean[][] statemap =
   };
 ```
 
-### 5. 如何使用
+## 5. 如何使用
+
 我们将以Nodemanager 为例，看看service在yarn中的基本用法。  
 下图展示了Nodemanager 基于服务化的基本结构  
 NodeManager 是一个组合服务，其中还包括了NodeStatusUpdaterImpl，NodeStatusUpdaterImpl是一个单一服务  
- ![](.gitbook/assets/yarn-service1.png)
+![](.gitbook/assets/yarn-service1.png)
 
 NodeManager 启动过程如下：  
 先初始化NodeManager对象（因为nodeManager 继承了 AbstractService ，所以本身也是一个服务），接着调用service提供的两个方法
@@ -77,7 +79,7 @@ this.start();
 **值得注意的是** 1. AbstractService 虽然提供了两个监听器集合 listeners和globalListeners。但globalListeners 到目前还没有用到。 2. CompositeService 通过addService方法和addIfService方法 向组合服务中添加服务，通过removeService方法移除服务。这些方法皆是线程安全的
 
 yarn 服务化概览  
-整个yarn 中有48个service，组合为4个组合服务。从中可以看出service是yarn中一个很重要的业务抽象
- ![](.gitbook/assets/yarn-service3.png)
+整个yarn 中有48个service，组合为4个组合服务。从中可以看出service是yarn中一个很重要的业务抽象 ![](.gitbook/assets/yarn-service3.png)
 
 ![](.gitbook/assets/yarn-service4.png)
+
