@@ -44,9 +44,8 @@ ApplicableSingleOrMultipleTransition 有三个属性，preState,事件类型，�
 stateMachineTable 需要在 transitionsListNode支持下才能构建。   
 构建逻辑是：先将所有的状态流转流程和触发操作写入 transitionsListNode，然后遍历transitionsListNode，来构建 stateMachineTable  
 
-### 3.3 核心逻辑
-#### 3.3.1 状态机构建基本流程    
-  1. 初始化  
+### 3.3 状态机构建基本流程    
+#### 3.3.1 初始化  
   初始化构造函数1,defaultInitialState 表示这个对象在初始化之后，在状态机中的初始化状态。  
 ```java
   public StateMachineFactory(STATE defaultInitialState) {
@@ -56,7 +55,8 @@ stateMachineTable 需要在 transitionsListNode支持下才能构建。
   this.stateMachineTable = null;
 }
 ```
-  2. 添加状态流转过程  
+
+#### 3.3.2 添加状态流转过程  
 上面提到，yarn 抽象来五个状态流转流程，每个流转流程都对应一个addTransition 方法（注意返回值是StateMachineFactory）   
 ```java
 StateMachineFactory
@@ -75,7 +75,8 @@ private StateMachineFactory
   this.stateMachineTable = null;
 }
 ```
-  3. 构建  
+
+#### 3.3.3 构建  
   待所有都状态流转都添加进状态机，状态机就需要开始构建内部缓存。调用的是构造函数3，构造函数 传入的 optimized 参数为true。  
   该构造函数通过调用makeStateMachineTable() 方法，将缓存在 transitionsListNode 的流转流程，转换为两层map,缓存到stateMachineTable    
   ```java
@@ -93,9 +94,9 @@ private StateMachineFactory
   }
 ```         
 
-#### 3.3.2 状态机执行流程
+### 4. 状态机执行流程
 以RMAppImpl 为例，描述状态机是如何使用的  
-  1. 构建状态机  
+#### 4.1 构建状态机  
   a. 调用StateMachineFactory 第一个构造函数，初始化状态机  
   b. 调用StateMachineFactory 第二个构造函数，添加状态流转流程  
   如：添加RMAppNewlySavingTransition 操作
@@ -112,14 +113,14 @@ private StateMachineFactory
   ```java
 final StateMachine<RMAppState, RMAppEventType, RMAppEvent> this.stateMachine = stateMachineFactory.make(this);
   ```
-  2. 生成事件，触发状态机  
+#### 4.2 生成事件，触发状态机  
   以RMAppEventType.START 事件为例
   当用户通过Hadoop jar 提交一个mr ,在rm 收到请求之后，rm 的 RMAppManager 服务会创建一个 RMAppEventType.START 类型的RMAppEvent事件 ，并通过下面的方式提交rm的中央调度器中。
 ```java
 this.rmContext.getDispatcher().getEventHandler()
   .handle(new RMAppEvent(applicationId, RMAppEventType.START));
 ```
-  3. 状态机内部执行堆栈  
+#### 4.3 状态机内部执行堆栈  
   a. 接收事件  
   因为RMAppImpl 本身也是一个事件处理器，而且注册到了RM 到中央异步处理器中，所有可以通过如下方式，感知到有RMAppEvent 事件产生
   ```java
@@ -153,7 +154,7 @@ private STATE doTransition
 }
 ```
 
-### 4 YANR 状态转换图
+### 5. YANR 状态转换图
 上面详细说明了状态机的实现机理，相信在YARN代码中遇到状态机的代码view的思路就更清晰了。就可以不用纠结状态机的内部逻辑，而直接从状态机构建来了解对象的流转过程，甚至可以通过下图，直接了解resourceManager和NodeManger的各 个对象的状态流转过程。  
 下面给出通过代码转换来的YARN各个对象的状态转换图  
 ![](/images/statem5.png)
