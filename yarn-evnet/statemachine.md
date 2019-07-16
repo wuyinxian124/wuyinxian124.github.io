@@ -22,7 +22,7 @@ private final StateMachine<RMAppState, RMAppEventType, RMAppEvent>
 ![](/images/stateMachine2.png)  
 1. 在prevState状态，接收到事件event，变成postState状态   
 2. 在prevState状态，接收到事件event，触发hook操作，变成postState状态  
-3. 在prevState状态，接收到事件event1或event2或event3，变成postState状态
+3. 在prevState状态，接收到事件event1或event2或event3，变成postState状态  
 4. 在prevState状态，接收到事件event1或event2或event3，触发hook操作，变成postState状态  
 5. 在prevState状态，接收到事件event，触发hook操作，变成postState1或postState2或postState3状态  
 通过StateMachineFactory 对象实现上面对应过程。
