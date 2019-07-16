@@ -4,7 +4,7 @@ description: >-
   底层实现逻辑。
 ---
 
-# Hadoop RPC
+# YARN RPC
 
 1. RPC 结构
 2. 实现
