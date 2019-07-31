@@ -10,63 +10,65 @@ ApplicationClientProtocol类 和protobuf 文件applicationclient_protocol.proto
 #### 2.1 第一层封装
 为了简化client 跟 RM 的交互，yarn  提供抽象类org.apache.hadoop.yarn.applications.distributedshell.Client.YarnClient （具体实现为YarnClientImpl）  
 YarnClient 继承自 AbstractService 是一个服务，起内部封装了一个对象timelineClient。  
-
+YarnClient 内部有一个封装了ApplicationClientProtocol 协议的rmClient 对象。相关的协议操作都通过rmClient 对象进行。
 #### 2.2 第二层封装
-封装协议调用实现   
-调用栈为：  
+rmClient 对象当然不是直接new 一个实现都协议就行了。  
+比如要解决一下RM是HA，你如何确保是跟主RM通信呢？RM 主备切换了，连接怎么切换呢？所有有第二层封装。  
+不过这里先暂时跳过这一层，假设RM 不是HA 。   
+RM 非HA的 ApplicationClientProtocol 协议调用栈为如下：  
 ```java
 rmClient = ClientRMProxy.createRMProxy(getConfig(),ApplicationClientProtocol.class);  
-                          | | 
-RMProxy.createRMProxy(final Configuration configuration,final Class<T> protocol, RMProxy instance)
-          | |       
-new RetryInvocationHandler<T>(proxyProvider, retryPolicy)
-
-Object ret = invokeMethod(method, args);
- 
-method.invoke(currentProxy.proxy, args);
-  
-RMFailoverProxyProvider<T> provider = instance.createRMFailoverProxyProvider(conf, protocol);
-
+                          | |
+                          \ /
+RMProxy.createRMProxy(final Configuration configuration,final Class<T> protocol, RMProxy instance);
+          | |
+          \ /
+RMProxy.newProxyInstance(final YarnConfiguration conf,
+      final Class<T> protocol, RMProxy<T> instance, RetryPolicy retryPolicy)
+          | |
+          \ /            
 YarnRPC.create(conf).getProxy(protocol, rmAddress, conf);
 ```    
 #### 2.3 第三层封装
-核心类 YarnRPC ，rpc 对外的开发的操作接口，其对应实现类为 HadoopYarnProtoRPC。  
+核心类 YarnRPC 是rpc框架对外开放的操作接口，其对应实现类为 HadoopYarnProtoRPC。  
 YarnRPC.create(conf) 获取的就是 HadoopYarnProtoRPC 对象  
-HadoopYarnProtoRPC.getProxy(protocol, rmAddress, conf) 具体实现如下： 
+所以前面提到的 YarnRPC.create(conf).getProxy(protocol, rmAddress, conf) 实现的逻辑就是  
+HadoopYarnProtoRPC.getProxy(protocol, rmAddress, conf) ，其具体实现如下：
 RpcFactoryProvider.getClientFactory(conf).getClient(protocol, 1, addr, conf)  
 
 getClient 方法，是通过反射获得的对象    
 pbClazz = localConf.getClassByName(getPBImplClassName(protocol))  
-getPBImplClassName 方法是获取 protocol 对应的实现类，该实现类在固定位置，假设protocol 是XXX ，所属包名是YYY ，则实现类在 YYY.impl.pb.client.XXXPBClientImpl  
+getPBImplClassName 方法是获取 protocol 对应的实现类，该实现类在固定位置   
+假设protocol 是XXX ，所属包名是YYY ，则实现类在 YYY.impl.pb.client.XXXPBClientImpl  
 比如 设置的协议是 ApplicationClientProtocol 。其获取的实现类就是  ApplicationClientProtocolPBClientImpl .  
-  
+
 到了这里 我们就知道  
 通过  
 ```java
 ClientRMProxy.createRMProxy(getConfig(),
-          ApplicationClientProtocol.class); 
+          ApplicationClientProtocol.class);
 ```
-方式创建的 rmClient  其实就是 ApplicationClientProtocolPBClientImpl .  
+方式创建的 rmClient  其实就是获得 ApplicationClientProtocolPBClientImpl对象.  
 
 ## 执行过程
 ### 1. 客户端处理
-以 提交app 方法为例：  
+以提交app 方法为例，说明客户端提交app的请求是如何到达 resourceManager 的    
 #### 1.1 ApplicationClientProtocolPBClientImpl 对象
 提交app 的方法是
 ```java
   public SubmitApplicationResponse submitApplication(
-      SubmitApplicationRequest request) 
+      SubmitApplicationRequest request)
   throws YarnException, IOException;
 ```
 上面已经知道 调用 rmClient.submitApplication  方法实际执行的是 ApplicationClientProtocolPBClientImpl.submitApplication 方法  
 而 ApplicationClientProtocolPBClientImpl.submitApplication 实际执行的是
-```java 
+```java
 proxy.submitApplication(null,requestProto)
 ```
 
 #### 1.2 RPC 对象
 要了解 proxy.submitApplication 执行过程，必须先研究 RPC 对象,因为 proxy 初始化过程如下：
-```java 
+```java
     RPC.setProtocolEngine(conf, ApplicationClientProtocolPB.class,
       ProtobufRpcEngine.class);
     proxy = RPC.getProxy(ApplicationClientProtocolPB.class, clientVersion, addr, conf);
@@ -152,6 +154,12 @@ b. Invoker 初始化包括
 进而调用 client.call ,进而创建一个 Call 对象  
 实现逻辑如下  
 ![](/images/clientRm1.png)
+
+![](/images/clientRpc11.png)
+
+![](/images/clientRpc12.png)
+
+#### 1.9 Client对象
 
 
 ### 2. 服务器处理
