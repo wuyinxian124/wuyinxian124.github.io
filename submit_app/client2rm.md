@@ -150,16 +150,34 @@ ensureInitialized()，初始化一个 对象 WritableRpcInvoker，并加入到 r
 b. Invoker 初始化包括  
 先获取一个 Client.ConnectionId 对象  
 然后初始化一个 Client 对象，并将其放到clients 缓存中  
-#### 1.8 如果执行proxy 某个方法，则会触发 WritableRpcEngine.Invoker.invoke()方法
+#### 1.8 触发submitApplication 方法  
+如果执行proxy 某个方法，则会触发 WritableRpcEngine.Invoker.invoke()方法
 进而调用 client.call ,进而创建一个 Call 对象  
+
+#### 1.9 Client对象
+Client 负责底层的连接通信，处理对应的RPC请求。  
+Client 内部有两个重要的内部类,分别是Call和Connection。
+处理逻辑如下图所示  
 实现逻辑如下  
 ![](/images/clientRm1.png)
 
-![](/images/clientRpc11.png)
+Call 类 :
+封装了一个RPC请求,它包含5个成员变量,分别是唯一标识id、函数调用信息param、函数执行返回值value、出错或者异常信息error和执行完成标识符done。  
+由于Hadoop RPC Server采用异步方式处理客户端请求,这使远程过程调用的发生顺序与结果返回顺序无直接关系,而Client端正是通过id识别不同的函数调用的。  
+当客户端向服务器端发送请求时,只需填充id和param两个变量,而剩下的3个变量(value、error和done)则由服务器端根据函数执行情况填充。  
 
-![](/images/clientRpc12.png)
+Connection 类:Client与每个Server之间维护一个通信连接,与该连接相关的基本信息及操作被封装到Connection类中。  
+基本信息主要包括通信连接唯一标识(remoteId)、与Server端通信的Socket(socket)、网络输入数据流(in)、网络输出数据流(out)、保存RPC请求的哈希表(calls)等。  
+操作则包括:   
+ addCall—将一个Call对象添加到哈希表中;   
+ sendParam—向服务器端发送RPC请求;   
+ receiveResponse—从服务器端接收已经处理完成的RPC请求;   
+ run—Connection 是一个线程类,它的run方法调用了receiveResponse方法,会一直等待接收 RPC 返回结果。
 
-#### 1.9 Client对象
-
+当调用call函数执行某个远程方法时,Client端需要进行(如下图所示)以下4个步骤。  
+创建一个Connection 对象,并将远程方法调用信息封装成Call对象,放到Connection对象中的哈希表中;  
+调用 Connection 类中的sendRpcRequest()方法将当前Call对象发送给Server端;  
+Server端处理完RPC请求后,将结果通过网络返回给Client端,Client端通过receiveRpcResponse()函数获取结果;  
+Client检查结果处理状态(成功还是失败),并将对应 Call 对象从哈希表中删除。  
 
 ### 2. 服务器处理
