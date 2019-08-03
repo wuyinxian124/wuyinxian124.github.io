@@ -21,16 +21,15 @@
   }
 </style>
 </head>
-<body><div id="readme" class="container"><article class="markdown-body entry-content"><p>RM &#x63A5;&#x6536;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#x63D0;&#x4EA4;&#x5230;&#x8FD0;&#x884C;APP&#x8BF7;&#x6C42;&#xFF0C;&#x7136;&#x540E;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x7ED9;NM &#x8BA9;&#x5176;&#x542F;&#x52A8;&#x4E00;&#x4E2A;APP<br>&#x5176;&#x8FC7;&#x7A0B;&#x53EF;&#x5206;&#x4E3A;&#x4E24;&#x6B65;&#xFF1A;&#x63A5;&#x6536;&#x8BF7;&#x6C42;&#xFF0C;&#x521B;&#x5EFA;APP</p>
+<body><div id="readme" class="container"><article class="markdown-body entry-content"><h1 id="rm-">RM&#x63A5;&#x6536;&#x8BF7;&#x6C42;</h1>
+<p>RM &#x63A5;&#x6536;&#x5230;&#x5BA2;&#x6237;&#x7AEF;&#x63D0;&#x4EA4;&#x5230;&#x8FD0;&#x884C;APP&#x8BF7;&#x6C42;&#xFF0C;&#x7136;&#x540E;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x7ED9;NM &#x8BA9;&#x5176;&#x542F;&#x52A8;&#x4E00;&#x4E2A;APP<br>&#x5176;&#x8FC7;&#x7A0B;&#x53EF;&#x5206;&#x4E3A;&#x4E24;&#x6B65;&#xFF1A;&#x63A5;&#x6536;&#x8BF7;&#x6C42;&#xFF0C;&#x521B;&#x5EFA;APP</p>
 <h3 id="1-">1. &#x63A5;&#x6536;&#x8BF7;&#x6C42;</h3>
-<p>&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;RPC&#x8BF7;&#x6C42;&#x4E4B;&#x540E;&#xFF0C;RM&#x5982;&#x4F55;&#x63A5;&#x6536;&#x5230;&#x5230;&#x5462;&#xFF1F;<br>&#x5904;&#x7406;&#x5173;&#x7CFB;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;<br><img src="/images/rmapp1.png" alt></p>
-<h4 id="1-1-">1.1 &#x8FDE;&#x63A5;&#x51C6;&#x5907;</h4>
-<h5 id="1-1-1-rm-">1.1.1 RM&#x542F;&#x52A8;</h5>
-<p>ResourceManager.main &#x662F;RM &#x5165;&#x53E3;&#x51FD;&#x6570;
-ResourceManager &#x662F;&#x4E00;&#x4E2A;service ,&#x5728;&#x5176;serviceInit &#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x521B;&#x5EFA;ClientRMService &#x670D;&#x52A1;</p>
-<h5 id="1-1-2-clientrmservice">1.1.2 ClientRMService</h5>
-<p>&#x521B;&#x5EFA;YarnRPC&#x5BF9;&#x8C61;&#xFF0C;&#x521D;&#x59CB;&#x5316;org.apache.hadoop.ipc.Server &#x5BF9;&#x8C61;,&#x5E76;&#x542F;&#x52A8;server&#x3002;
-&#x8FD9;&#x662F;RM &#x63A5;&#x6536; &#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#x4E09;&#x4E2A;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;&#x3002;</p>
+<p>&#x5BA2;&#x6237;&#x7AEF;&#x53D1;&#x9001;RPC&#x8BF7;&#x6C42;&#x4E4B;&#x540E;&#xFF0C;RM&#x5982;&#x4F55;&#x63A5;&#x6536;&#x5230;&#x5230;&#x5462;&#xFF1F;<br>&#x5904;&#x7406;&#x5173;&#x7CFB;&#x5982;&#x4E0B;&#x56FE;&#x6240;&#x793A;&#xFF1A;<br><img src="../.gitbook/assets/rmapp1.png" alt></p>
+<h3 id="1-1-">1.1 &#x8FDE;&#x63A5;&#x51C6;&#x5907;</h3>
+<h4 id="1-1-1-rm-">1.1.1 RM&#x542F;&#x52A8;</h4>
+<p>ResourceManager.main &#x662F;RM &#x5165;&#x53E3;&#x51FD;&#x6570; ResourceManager &#x662F;&#x4E00;&#x4E2A;service ,&#x5728;&#x5176;serviceInit &#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x521B;&#x5EFA;ClientRMService &#x670D;&#x52A1;</p>
+<h4 id="1-1-2-clientrmservice">1.1.2 ClientRMService</h4>
+<p>&#x521B;&#x5EFA;YarnRPC&#x5BF9;&#x8C61;&#xFF0C;&#x521D;&#x59CB;&#x5316;org.apache.hadoop.ipc.Server &#x5BF9;&#x8C61;,&#x5E76;&#x542F;&#x52A8;server&#x3002; &#x8FD9;&#x662F;RM &#x63A5;&#x6536; &#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#x4E09;&#x4E2A;&#x51C6;&#x5907;&#x5DE5;&#x4F5C;&#x3002;</p>
 <pre><code class="language-java">YarnRPC rpc = YarnRPC.create(conf);
 this.server =   
   rpc.getServer(ApplicationClientProtocol.class, this,
@@ -39,15 +38,15 @@ this.server =
         conf.getInt(YarnConfiguration.RM_CLIENT_THREAD_COUNT,
             YarnConfiguration.DEFAULT_RM_CLIENT_THREAD_COUNT));
 this.server.start();</code></pre>
-<h5 id="1-1-3-yarnrpc-">1.1.3 YarnRPC &#x521D;&#x59CB;&#x5316;</h5>
+<h4 id="1-1-3-yarnrpc-">1.1.3 YarnRPC &#x521D;&#x59CB;&#x5316;</h4>
 <p>YarnRPC&#x7684;&#x5B9E;&#x73B0;&#x7C7B;&#x4E3A; HadoopYarnProtoRPC</p>
-<h5 id="1-1-4-org-apache-hadoop-ipc-server-">1.1.4 org.apache.hadoop.ipc.Server &#x521B;&#x5EFA;</h5>
+<h4 id="1-1-4-org-apache-hadoop-ipc-server-">1.1.4 org.apache.hadoop.ipc.Server &#x521B;&#x5EFA;</h4>
 <p>rpc.getServer &#x6267;&#x884C;&#x903B;&#x8F91;&#x662F; HadoopYarnProtoRPC.getServer<br>HadoopYarnProtoRPC.getServer &#x6838;&#x5FC3;&#x662F;</p>
-<pre><code>RpcFactoryProvider.getServerFactory(conf).getServer(protocol, instance, addr, conf, secretManager, numHandlers, portRangeConfig);</code></pre><p>&#x56E0;&#x4E3A; RpcFactoryProvider.getServerFactory(conf) &#x8FD4;&#x56DE;&#x7684;&#x662F; RpcServerFactoryPBImpl &#x5BF9;&#x8C61;&#x3002;
-&#x56E0;&#x800C;rpc.getServer &#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x4E3A; RpcServerFactoryPBImpl.getServer &#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x3002;  </p>
-<h5 id="1-1-5-rpc-server-">1.1.5 RPC.Server&#x521B;&#x5EFA;</h5>
+<pre><code class="language-text">RpcFactoryProvider.getServerFactory(conf).getServer(protocol, instance, addr, conf, secretManager, numHandlers, portRangeConfig);</code></pre>
+<p>&#x56E0;&#x4E3A; RpcFactoryProvider.getServerFactory(conf) &#x8FD4;&#x56DE;&#x7684;&#x662F; RpcServerFactoryPBImpl &#x5BF9;&#x8C61;&#x3002; &#x56E0;&#x800C;rpc.getServer &#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x4E3A; RpcServerFactoryPBImpl.getServer &#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x3002;</p>
+<h4 id="1-1-5-rpc-server-">1.1.5 RPC.Server&#x521B;&#x5EFA;</h4>
 <p>RpcServerFactoryPBImpl &#x521B;&#x5EFA;server &#x6700;&#x7EC8;&#x6267;&#x884C;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre><code class="language-Java">private Server createServer(Class&lt;?&gt; pbProtocol, InetSocketAddress addr, Configuration conf,
+<pre><code class="language-java">private Server createServer(Class&lt;?&gt; pbProtocol, InetSocketAddress addr, Configuration conf,
 SecretManager&lt;? extends TokenIdentifier&gt; secretManager, int numHandlers,
 BlockingService blockingService, String portRangeConfig) throws IOException {
 RPC.setProtocolEngine(conf, pbProtocol, ProtobufRpcEngine.class);
@@ -60,49 +59,43 @@ LOG.info(&quot;Adding protocol &quot;+pbProtocol.getCanonicalName()+&quot; to th
 server.addProtocol(RPC.RpcKind.RPC_PROTOCOL_BUFFER, pbProtocol, blockingService);
 return server;
 }</code></pre>
-<h4 id="1-2-server-">1.2 Server &#x521D;&#x59CB;&#x5316;</h4>
-<h5 id="1-2-1-">1.2.1 &#x6784;&#x5EFA;</h5>
-<p>&#x4E0A;&#x9762; Builder.build &#x65B9;&#x6CD5;&#x5C06;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;Server &#x5BF9;&#x8C61;&#xFF0C;&#x5B9E;&#x73B0;&#x903B;&#x8F91;&#x662F; getProtocolEngine().getServer() &#x3002;<br>getProtocolEngine &#x8FD4;&#x56DE;&#x7684;&#x662F;WritableRpcEngine &#x5BF9;&#x8C61;&#xFF0C;&#x6240;&#x4EE5; WritableRpcEngine.getServer&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x662F;RPC.Server &#x5BF9;&#x8C61;&#x3002;&#xFF08;&#x76EE;&#x524D;&#x6700;&#x65B0;&#x7248;&#x672C; &#x9ED8;&#x8BA4;&#x4E0D;&#x662F; WritableRpcEngine&#xFF0C;&#x800C;&#x662F; ProtobufRpcEngine &#x4F46;&#x662F;&#x903B;&#x8F91;&#x5DEE;&#x4E0D;&#x591A; &#xFF09;<br>WritableRpcEngine.Server &#x7EE7;&#x627F;&#x81EA; RPC.Server&#xFF0C;RPC.Server &#x7EE7;&#x627F;&#x81EA; org.apache.hadoop.ipc.Server
-&#x521D;&#x59CB;&#x5316; Server &#x5BF9;&#x8C61;&#x4E4B;&#x540E;&#xFF0C;&#x4F1A;&#x5C06;&#x6CE8;&#x518C;&#x7684;&#x63A5;&#x53E3;&#x548C;&#x63A5;&#x53E3;&#x5BF9;&#x5E94;&#x5B9E;&#x73B0;&#x653E;&#x5165;&#x7F13;&#x5B58; RPC.Server.protocolImplMapArray<br>RPC.Server.protocolImplMapArray &#x7F13;&#x5B58;&#x5185;&#x5BB9;&#x4E3A;
-getProtocolImplMap(rpcKind).put(new ProtoNameVer(protocolName, version), new ProtoClassProtoImpl(protocolClass, protocolImpl))</p>
-<h5 id="1-2-2-org-apache-hadoop-ipc-server-">1.2.2 org.apache.hadoop.ipc.Server &#x521D;&#x59CB;&#x5316;</h5>
+<h3 id="1-2-server-">1.2 Server &#x521D;&#x59CB;&#x5316;</h3>
+<h4 id="1-2-1-">1.2.1 &#x6784;&#x5EFA;</h4>
+<p>&#x4E0A;&#x9762; Builder.build &#x65B9;&#x6CD5;&#x5C06;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;Server &#x5BF9;&#x8C61;&#xFF0C;&#x5B9E;&#x73B0;&#x903B;&#x8F91;&#x662F; getProtocolEngine().getServer() &#x3002;<br>getProtocolEngine &#x8FD4;&#x56DE;&#x7684;&#x662F;WritableRpcEngine &#x5BF9;&#x8C61;&#xFF0C;&#x6240;&#x4EE5; WritableRpcEngine.getServer&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x662F;RPC.Server &#x5BF9;&#x8C61;&#x3002;&#xFF08;&#x76EE;&#x524D;&#x6700;&#x65B0;&#x7248;&#x672C; &#x9ED8;&#x8BA4;&#x4E0D;&#x662F; WritableRpcEngine&#xFF0C;&#x800C;&#x662F; ProtobufRpcEngine &#x4F46;&#x662F;&#x903B;&#x8F91;&#x5DEE;&#x4E0D;&#x591A; &#xFF09;<br>WritableRpcEngine.Server &#x7EE7;&#x627F;&#x81EA; RPC.Server&#xFF0C;RPC.Server &#x7EE7;&#x627F;&#x81EA; org.apache.hadoop.ipc.Server &#x521D;&#x59CB;&#x5316; Server &#x5BF9;&#x8C61;&#x4E4B;&#x540E;&#xFF0C;&#x4F1A;&#x5C06;&#x6CE8;&#x518C;&#x7684;&#x63A5;&#x53E3;&#x548C;&#x63A5;&#x53E3;&#x5BF9;&#x5E94;&#x5B9E;&#x73B0;&#x653E;&#x5165;&#x7F13;&#x5B58; RPC.Server.protocolImplMapArray<br>RPC.Server.protocolImplMapArray &#x7F13;&#x5B58;&#x5185;&#x5BB9;&#x4E3A; getProtocolImplMap(rpcKind).put(new ProtoNameVer(protocolName, version), new ProtoClassProtoImpl(protocolClass, protocolImpl))</p>
+<h4 id="1-2-2-org-apache-hadoop-ipc-server-">1.2.2 org.apache.hadoop.ipc.Server &#x521D;&#x59CB;&#x5316;</h4>
 <p>&#x5176;&#x4E2D;&#x5305;&#x62EC;&#x4E24;&#x4E2A;&#x5BF9;&#x8C61;<br>listener = new Listener();&#x548C;responder = new Responder();<br>2.2.1 Listener &#x5BF9;&#x8C61;<br>&#x5176;&#x4E2D;&#x5305;&#x62EC; Reader &#x5BF9;&#x8C61;&#xFF0C;&#x8D1F;&#x8D23;OP_READ &#x4E8B;&#x4EF6;&#x5904;&#x7406;<br>Listener &#x5BF9;&#x8C61;&#x8D1F;&#x8D23;&#x5904;&#x7406; OP_ACCEPT&#x4E8B;&#x4EF6;<br>2.2.2 &#x56DE;&#x590D;&#x7531;responder &#x5904;&#x7406;<br>&#x5176;&#x76D1;&#x542C;&#x7684;&#x662F;writeSelector.select(PURGE_INTERVAL);<br>&#x5176;&#x5185;&#x90E8;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x5FAA;&#x73AF;&#x5904;&#x7406;&#x56DE;&#x590D;&#xFF0C;doRunLoop();</p>
-<h5 id="1-2-3-server-">1.2.3 Server &#x542F;&#x52A8;</h5>
+<h4 id="1-2-3-server-">1.2.3 Server &#x542F;&#x52A8;</h4>
 <p>&#x542F;&#x52A8;&#x4EE3;&#x7801;&#xFF1A;</p>
-<pre><code class="language-Java">responder.start();
+<pre><code class="language-java">responder.start();
 listener.start();
 handlers = new Handler[handlerCount];
 for (int i = 0; i &lt; handlerCount; i++) {
   handlers[i] = new Handler(i);
   handlers[i].start();
 }</code></pre>
-<h3 id="1-3-">1.3 &#x6D88;&#x606F;&#x63A5;&#x6536;&#xFF0C;&#x5904;&#x7406;&#xFF0C;&#x56DE;&#x590D;&#x8FC7;&#x7A0B;&#x5206;&#x6790;</h3>
+<h2 id="1-3-">1.3 &#x6D88;&#x606F;&#x63A5;&#x6536;&#xFF0C;&#x5904;&#x7406;&#xFF0C;&#x56DE;&#x590D;&#x8FC7;&#x7A0B;&#x5206;&#x6790;</h2>
 <p>&#x5F53; new Listener()&#xFF0C; new Responder() &#xFF0C; new Handler(i) &#x521D;&#x59CB;&#x5316;&#x5E76;&#x542F;&#x52A8;&#x3002;&#x771F;&#x6B63;&#x7684;&#x5904;&#x7406;&#x8FC7;&#x7A0B;&#x624D;&#x5F00;&#x59CB;</p>
-<h4 id="1-3-1-">1.3.1 &#x6D88;&#x606F;&#x5904;&#x7406;</h4>
-<p>Listener &#x5904;&#x7406;OP_ACCEPT&#x4E8B;&#x4EF6;&#xFF0C;&#x5C31;&#x901A;&#x8FC7;reader.addConnection(c); &#x4F20;&#x9012;&#x7ED9; Reader &#xFF0C;Reader &#x5185;&#x90E8;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5FAA;&#x73AF;&#x5904;&#x7406;&#xFF0C;&#x6700;&#x7EC8;&#x5904;&#x7406;&#x8BFB;&#x7684;&#x662F; Server.Connection.readAndProcess&#x65B9;&#x6CD5;&#xFF0C;<br>&#x8BFB;&#x5206;&#x4E3A;&#x4E09;&#x6B65;&#xFF1A;</p>
-<ol>
-<li>&#x6D88;&#x606F;&#x957F;&#x5EA6;&#xFF08;&#x653E;&#x5230;dataLengthBuffer &#xFF09;   </li>
+<h3 id="1-3-1-">1.3.1 &#x6D88;&#x606F;&#x5904;&#x7406;</h3>
+<p>Listener &#x5904;&#x7406;OP_ACCEPT&#x4E8B;&#x4EF6;&#xFF0C;&#x5C31;&#x901A;&#x8FC7;reader.addConnection(c); &#x4F20;&#x9012;&#x7ED9; Reader &#xFF0C;Reader &#x5185;&#x90E8;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5FAA;&#x73AF;&#x5904;&#x7406;&#xFF0C;&#x6700;&#x7EC8;&#x5904;&#x7406;&#x8BFB;&#x7684;&#x662F; Server.Connection.readAndProcess&#x65B9;&#x6CD5;&#xFF0C;<br>&#x8BFB;&#x5206;&#x4E3A;&#x4E09;&#x6B65;&#xFF1A; 1. &#x6D88;&#x606F;&#x957F;&#x5EA6;&#xFF08;&#x653E;&#x5230;dataLengthBuffer &#xFF09;  </p>
+<ol start="2">
 <li>&#x6D88;&#x606F;&#x5934;&#xFF08;&#x653E;&#x5230;connectionHeaderBuf&#xFF09;  </li>
-<li>&#x6D88;&#x606F;&#x5185;&#x5BB9;&#xFF08;&#x653E;&#x5230;data &#xFF09;  </li>
+<li>&#x6D88;&#x606F;&#x5185;&#x5BB9;&#xFF08;&#x653E;&#x5230;data &#xFF09;</li>
 </ol>
-<p>processOneRpc(data.array())  &#x6765;&#x5904;&#x7406;&#x6D88;&#x606F;&#xFF0C;&#x5148;&#x89E3;&#x6790;&#x6D88;&#x606F;&#x5934;&#xFF08;processRpcOutOfBandRequest&#x65B9;&#x6CD5;&#xFF09;&#xFF0C;&#x518D;&#x89E3;&#x6790;&#x6D88;&#x606F;&#x4F53;&#xFF08;processRpcRequest&#x65B9;&#x6CD5;&#xFF09;<br>&#x89E3;&#x6790;&#x6D88;&#x606F;&#x4F53; &#x5305;&#x62EC;&#xFF1A;</p>
-<ol>
-<li>&#x6784;&#x5EFA; Writable rpcRequest &#x5BF9;&#x8C61;&#xFF08; rpcRequest.readFields(dis) &#xFF09;  </li>
-<li>&#x7136;&#x540E;&#x57FA;&#x4E8E;Writable rpcRequest &#x5BF9;&#x8C61;&#x6784;&#x5EFA;new Call() &#x5BF9;&#x8C61;&#x3002;</li>
-<li>&#x518D;&#x5C06;call &#x653E;&#x5165;&#x7F13;&#x5B58; callQueue.put(call);</li>
+<p>processOneRpc(data.array()) &#x6765;&#x5904;&#x7406;&#x6D88;&#x606F;&#xFF0C;&#x5148;&#x89E3;&#x6790;&#x6D88;&#x606F;&#x5934;&#xFF08;processRpcOutOfBandRequest&#x65B9;&#x6CD5;&#xFF09;&#xFF0C;&#x518D;&#x89E3;&#x6790;&#x6D88;&#x606F;&#x4F53;&#xFF08;processRpcRequest&#x65B9;&#x6CD5;&#xFF09;<br>&#x89E3;&#x6790;&#x6D88;&#x606F;&#x4F53; &#x5305;&#x62EC;&#xFF1A; 1. &#x6784;&#x5EFA; Writable rpcRequest &#x5BF9;&#x8C61;&#xFF08; rpcRequest.readFields(dis) &#xFF09;  </p>
+<ol start="2">
+<li>&#x7136;&#x540E;&#x57FA;&#x4E8E;Writable rpcRequest &#x5BF9;&#x8C61;&#x6784;&#x5EFA;new Call() &#x5BF9;&#x8C61;&#x3002; 3. &#x518D;&#x5C06;call &#x653E;&#x5165;&#x7F13;&#x5B58; callQueue.put(call);</li>
 </ol>
-<h4 id="1-3-2-call-">1.3.2 call &#x5BF9;&#x8C61;&#x89E3;&#x6790;</h4>
-<p>Handler &#x5185;&#x90E8;&#x7EBF;&#x7A0B;&#x5FAA;&#x73AF;&#x904D;&#x5386;&#x7F13;&#x5B58; callQueue &#x83B7;&#x53D6;call &#x5BF9;&#x8C61;<br>call &#x5BF9;&#x8C61;&#x7684;&#x5904;&#x7406;&#x903B;&#x8F91;&#x5728;&#x5982;&#x4E0B;&#x65B9;&#x6CD5;&#x4E2D;&#xFF1A;<br>value = call(call.rpcKind, call.connection.protocolName, call.rpcRequest,
-call.timestamp);<br>call &#x65B9;&#x6CD5;&#x5B9E;&#x73B0;&#x5728; ProtobufRpcEngine<br>&#x5176;&#x5904;&#x7406;&#x6838;&#x5FC3;&#x662F;  </p>
-<pre><code class="language-Java">ProtoClassProtoImpl protocolImpl = getProtocolImpl(server,
+<h3 id="1-3-2-call-">1.3.2 call &#x5BF9;&#x8C61;&#x89E3;&#x6790;</h3>
+<p>Handler &#x5185;&#x90E8;&#x7EBF;&#x7A0B;&#x5FAA;&#x73AF;&#x904D;&#x5386;&#x7F13;&#x5B58; callQueue &#x83B7;&#x53D6;call &#x5BF9;&#x8C61;<br>call &#x5BF9;&#x8C61;&#x7684;&#x5904;&#x7406;&#x903B;&#x8F91;&#x5728;&#x5982;&#x4E0B;&#x65B9;&#x6CD5;&#x4E2D;&#xFF1A;<br>value = call(call.rpcKind, call.connection.protocolName, call.rpcRequest, call.timestamp);<br>call &#x65B9;&#x6CD5;&#x5B9E;&#x73B0;&#x5728; ProtobufRpcEngine<br>&#x5176;&#x5904;&#x7406;&#x6838;&#x5FC3;&#x662F;</p>
+<pre><code class="language-java">ProtoClassProtoImpl protocolImpl = getProtocolImpl(server,
                       declaringClassProtoName, clientVersion);
 BlockingService service = (BlockingService) protocolImpl.protocolImpl;
 Message result;
 Call currentCall = Server.getCurCall().get();
 result = service.callBlockingMethod(methodDescriptor, null, param);
 return RpcWritable.wrap(result);</code></pre>
-<p>&#x83B7;&#x53D6;value &#x5BF9;&#x8C61;&#x4E4B;&#x540E;&#xFF0C;&#x5C06;&#x5904;&#x7406;&#x7ED3;&#x679C;&#x653E;&#x5165;response  </p>
-<pre><code class="language-Java">synchronized (call.connection.responseQueue) {
+<p>&#x83B7;&#x53D6;value &#x5BF9;&#x8C61;&#x4E4B;&#x540E;&#xFF0C;&#x5C06;&#x5904;&#x7406;&#x7ED3;&#x679C;&#x653E;&#x5165;response</p>
+<pre><code class="language-java">synchronized (call.connection.responseQueue) {
 setupResponse(buf, call, returnStatus, detailedErr,
 value, errorClass, error);
 if (buf.size() &gt; maxRespSize) {
@@ -112,21 +105,23 @@ buf = new ByteArrayOutputStream(INITIAL_RESP_BUF_SIZE);
 }
 responder.doRespond(call);
 }</code></pre>
-<p>&#x5206;&#x6790;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x53EF;&#x77E5;<br>setupResponse &#x65B9;&#x6CD5;&#xFF0C;&#x9996;&#x5148;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x653E;&#x5165;ByteArrayOutputStream &#x5BF9;&#x8C61;&#x4E2D;&#xFF0C;&#x6700;&#x540E;&#x8C03;&#x7528;call.setResponse(ByteBuffer.wrap(responseBuf.toByteArray())); &#x5C06;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x653E;&#x5165;call &#x5BF9;&#x8C61;&#x4E2D;<br>&#x63A5;&#x7740; &#x8C03;&#x7528;Responder.responder.doRespond(call); &#x5C06;&#x5E26;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#x7684;call &#x653E;&#x5165;&#x7F13;&#x5B58;call.connection.responseQueue<br>&#x5904;&#x7406;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x4ECE; call = responseQueue.removeFirst();&#x62FF;&#x51FA;&#x4E00;&#x4E2A;&#xFF0C;&#x518D;&#x901A;&#x8FC7;
-int numBytes = channelWrite(channel, call.rpcResponse); &#x5229;&#x7528;channel.write(buffer) &#xFF08;&#x6216;&#x8005;channelIO &#x904D;&#x5386;&#x5199;&#x5165;&#xFF09; &#x5C06;&#x6570;&#x636E;&#x5199;&#x56DE;&#x7BA1;&#x9053;&#x3002;  </p>
-<h4 id="1-3-3-server-">1.3.3 Server&#x5904;&#x7406;&#x6D88;&#x606F;&#x5BF9;&#x8C61;</h4>
+<p>&#x5206;&#x6790;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x53EF;&#x77E5;<br>setupResponse &#x65B9;&#x6CD5;&#xFF0C;&#x9996;&#x5148;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x653E;&#x5165;ByteArrayOutputStream &#x5BF9;&#x8C61;&#x4E2D;&#xFF0C;&#x6700;&#x540E;&#x8C03;&#x7528;call.setResponse(ByteBuffer.wrap(responseBuf.toByteArray())); &#x5C06;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x653E;&#x5165;call &#x5BF9;&#x8C61;&#x4E2D;<br>&#x63A5;&#x7740; &#x8C03;&#x7528;Responder.responder.doRespond(call); &#x5C06;&#x5E26;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#x7684;call &#x653E;&#x5165;&#x7F13;&#x5B58;call.connection.responseQueue<br>&#x5904;&#x7406;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x4ECE; call = responseQueue.removeFirst();&#x62FF;&#x51FA;&#x4E00;&#x4E2A;&#xFF0C;&#x518D;&#x901A;&#x8FC7; int numBytes = channelWrite(channel, call.rpcResponse); &#x5229;&#x7528;channel.write(buffer) &#xFF08;&#x6216;&#x8005;channelIO &#x904D;&#x5386;&#x5199;&#x5165;&#xFF09; &#x5C06;&#x6570;&#x636E;&#x5199;&#x56DE;&#x7BA1;&#x9053;&#x3002;</p>
+<h3 id="1-3-3-server-">1.3.3 Server&#x5904;&#x7406;&#x6D88;&#x606F;&#x5BF9;&#x8C61;</h3>
 <p>&#x8BB0;&#x5F97;&#x6700;&#x524D;&#x9762;server&#x542F;&#x52A8;&#x7684;&#x6700;&#x540E;&#x8C03;&#x7528;&#x4E86;</p>
-<pre><code class="language-Java">server.addProtocol(RPC.RpcKind.RPC_PROTOCOL_BUFFER, pbProtocol, blockingService);</code></pre>
-<p>blockingService&#x6765;&#x81EA;  </p>
-<pre><code>(BlockingService)method.invoke(null, service)</code></pre><p>service&#x6765;&#x81EA;</p>
-<pre><code>service = constructor.newInstance(instance);</code></pre><p>constructor &#x6765;&#x81EA;</p>
-<pre><code>Class&lt;?&gt; pbServiceImplClazz = null;
+<pre><code class="language-java">server.addProtocol(RPC.RpcKind.RPC_PROTOCOL_BUFFER, pbProtocol, blockingService);</code></pre>
+<p>blockingService&#x6765;&#x81EA;</p>
+<pre><code class="language-text">(BlockingService)method.invoke(null, service)</code></pre>
+<p>service&#x6765;&#x81EA;</p>
+<pre><code class="language-text">service = constructor.newInstance(instance);</code></pre>
+<p>constructor &#x6765;&#x81EA;</p>
+<pre><code class="language-text">Class&lt;?&gt; pbServiceImplClazz = null;
   pbServiceImplClazz = conf
       .getClassByName(getPbServiceImplClassName(protocol));
-  constructor = pbServiceImplClazz.getConstructor(protocol);</code></pre><p>getPbServiceImplClassName &#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x534F;&#x8BAE;&#x7684;&#x5B9E;&#x73B0;&#x3002;<br>&#x5047;&#x8BBE;protocol &#x662F;XXX &#xFF0C;&#x6240;&#x5C5E;&#x5305;&#x540D;&#x662F;YYY &#xFF0C;&#x5219;&#x5B9E;&#x73B0;&#x7C7B;&#x5728; YYY.impl.pb.service.XXXPBServiceImpl<br>&#x8FD9;&#x91CC;&#x534F;&#x8BAE;&#x6307;&#x7684;&#x662F; ApplicationClientProtocol  &#x5219;&#x534F;&#x8BAE;&#x7684;&#x5B9E;&#x73B0;&#x4E3A;&#xFF1A;   org.apache.hadoop.yarn.api.impl.pb.service.ApplicationClientProtocolPBServiceImpl</p>
+  constructor = pbServiceImplClazz.getConstructor(protocol);</code></pre>
+<p>getPbServiceImplClassName &#x65B9;&#x6CD5;&#x83B7;&#x53D6;&#x5BF9;&#x5E94;&#x534F;&#x8BAE;&#x7684;&#x5B9E;&#x73B0;&#x3002;<br>&#x5047;&#x8BBE;protocol &#x662F;XXX &#xFF0C;&#x6240;&#x5C5E;&#x5305;&#x540D;&#x662F;YYY &#xFF0C;&#x5219;&#x5B9E;&#x73B0;&#x7C7B;&#x5728; YYY.impl.pb.service.XXXPBServiceImpl<br>&#x8FD9;&#x91CC;&#x534F;&#x8BAE;&#x6307;&#x7684;&#x662F; ApplicationClientProtocol &#x5219;&#x534F;&#x8BAE;&#x7684;&#x5B9E;&#x73B0;&#x4E3A;&#xFF1A; org.apache.hadoop.yarn.api.impl.pb.service.ApplicationClientProtocolPBServiceImpl</p>
 <p>&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x662F; ApplicationClientProtocolPBServiceImpl &#x6784;&#x9020;&#x51FD;&#x6570; &#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;&#x4E3A; ClientRMService</p>
-<h3 id="2-app">2. &#x521B;&#x5EFA;App</h3>
-<h4 id="2-1-">2.1 &#x521B;&#x5EFA;&#x5E94;&#x7528;</h4>
+<h2 id="2-app">2. &#x521B;&#x5EFA;App</h2>
+<h3 id="2-1-">2.1 &#x521B;&#x5EFA;&#x5E94;&#x7528;</h3>
 <p>&#x5BA2;&#x6237;&#x7AEF;&#x6267;&#x884C; submitApplication &#x63D0;&#x4EA4;&#x4E00;&#x4E2A;&#x6267;&#x884C;&#x5E94;&#x7528;&#x8BF7;&#x6C42;&#x4E4B;&#x540E; &#x89E6;&#x53D1; RM &#x7684;</p>
 <pre><code class="language-java">ApplicationClientProtocolPBServiceImpl.submitApplication()  
              | |  
@@ -138,8 +133,8 @@ org.apache.hadoop.yarn.server.resourcemanager.ClientRMService.submitApplication(
 org.apache.hadoop.yarn.server.resourcemanager.RMAppManager.submitApplication()  
 
 org.apache.hadoop.yarn.server.resourcemanager.RMAppManager.createAndPopulateNewRMApp()</code></pre>
-<p>&#x5728; createAndPopulateNewRMApp &#x65B9;&#x6CD5;&#x6700;&#x540E;&#xFF0C;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;RMAppImpl   </p>
-<pre><code>// Create RMApp
+<p>&#x5728; createAndPopulateNewRMApp &#x65B9;&#x6CD5;&#x6700;&#x540E;&#xFF0C;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;RMAppImpl</p>
+<pre><code class="language-text">// Create RMApp
 RMAppImpl application =
     new RMAppImpl(applicationId, rmContext, this.conf,
         submissionContext.getApplicationName(), user,
@@ -147,7 +142,8 @@ RMAppImpl application =
         submissionContext, this.scheduler, this.masterService,
         submitTime, submissionContext.getApplicationType(),
         submissionContext.getApplicationTags(), amReqs, placementContext,
-        startTime);</code></pre></article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
+        startTime);</code></pre>
+</article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>
 </div>

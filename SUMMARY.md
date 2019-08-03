@@ -10,6 +10,7 @@
   * [RPC 实现](rpc/rpc_core.md)
 * [提交app的过程](submit_app/README.md)
   * [客户端提交app](submit_app/client2rm.md)
-  * [RM分配和下发APP](submit_app/rm_app.md)
+  * [RM接收请求](submit_app/rm_app.md)
+  * [RM分配并下发App](submit_app/rmallocatedapp.md)
   * [NM拉起APP](submit_app/nm_app.md)
 
