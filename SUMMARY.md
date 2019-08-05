@@ -12,6 +12,6 @@
   * [客户端提交app](submit_app/client2rm.md)
   * [RM接收请求](submit_app/rm_app.md)
   * [RM分配App](submit_app/rmallocateapp.md)
-  * [RM下发App](submit_app/rmallocatedapp.md)
+  * [RM下发App](submit_app/rmissueapp.md)
   * [NM拉起APP](submit_app/nm_app.md)
 
