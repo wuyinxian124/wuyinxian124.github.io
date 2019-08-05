@@ -4,6 +4,7 @@ RM 接收到客户端提交到运行APP请求，然后发送一个命令给NM �
 其过程可分为两步：接收请求，创建APP
 
 ### 1. 接收请求
+
 客户端发送RPC请求之后，RM如何接收到到呢？  
 处理关系如下图所示：  
 ![](../.gitbook/assets/rmapp1.png)
@@ -218,3 +219,4 @@ RMAppImpl application =
         submissionContext.getApplicationTags(), amReqs, placementContext,
         startTime);
 ```
+
