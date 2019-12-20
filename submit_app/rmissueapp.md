@@ -3,6 +3,7 @@
 本文描述的是 ResourceManager 如何下发一个 执行app的命令给Node Manager
 
 ## 1. 基本对象
+
 RmApp： app 在 ResourceManager 的抽象。  
 RmAppAttempt ： app 在 resourceManager 不同参数运行次数的抽象  
 container：app 资源抽象  
@@ -11,6 +12,7 @@ ApplicationMaster ： app 执行大脑
 本文描述的下发App 详细描述的是 resourceManager 向 Node Manager 发送一个启动 ApplicationMaster 的命令。
 
 ## 2. ResourceManager 下发
+
 ResourceManager 下发applicationMaster的入口在  
 AMLauncher.launch\(\), AMLaunch.launch先在connect\(\)中拿到对应node的rpc客户端containerMgrProxy，然后构造request，最后调用rpc函数startContainers\(\)并返回response。 具体逻辑是：
 
@@ -64,3 +66,4 @@ public StartContainersResponse
   }
 }
 ```
+
