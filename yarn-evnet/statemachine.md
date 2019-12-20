@@ -189,5 +189,9 @@ private STATE doTransition
 
 上面详细说明了状态机的实现机理，相信在YARN代码中遇到状态机的代码view的思路就更清晰了。就可以不用纠结状态机的内部逻辑，而直接从状态机构建来了解对象的流转过程，甚至可以通过下图，直接了解resourceManager和NodeManger的各 个对象的状态流转过程。  
 下面给出通过代码转换来的YARN各个对象的状态转换图  
-![](../.gitbook/assets/statem5.png) ![](../.gitbook/assets/state6.png)
+ 
+
+![](../.gitbook/assets/statem5.png)
+
+![](../.gitbook/assets/state6.png)
 
