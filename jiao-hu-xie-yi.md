@@ -8,5 +8,3 @@ description: 不同模块之间的交互协议
 
 ![](.gitbook/assets/image.png)
 
-
-

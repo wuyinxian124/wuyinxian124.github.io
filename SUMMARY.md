@@ -10,6 +10,7 @@
   * [RPC 实现](rpc/rpc_core.md)
 * [交互协议](jiao-hu-xie-yi.md)
 * [提交app的过程](submit_app/README.md)
+  * [提交APP概要](submit_app/ti-jiao-app-gai-yao.md)
   * [客户端提交app](submit_app/client2rm.md)
   * [RM接收请求](submit_app/rm_app.md)
   * [RM分配App](submit_app/rmallocateapp.md)
