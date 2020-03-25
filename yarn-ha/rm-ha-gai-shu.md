@@ -26,3 +26,4 @@ RM 是如何 用ZKRMStateStore来避免脑裂
 
 因为强依赖zk,所以有必要了解一下 node 属性信息，如 dataVersion 等，参考：[https://blog.csdn.net/lihao21/article/details/51810395](https://blog.csdn.net/lihao21/article/details/51810395)
 
+RM HA更多参考：https://docs.cloudera.com/documentation/enterprise/6/6.3/topics/cdh_hag_rm_ha_config.html#xd_583c10bfdbd326ba--43d5fd93-1410993f8c2--7f77
