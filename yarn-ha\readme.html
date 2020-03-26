@@ -21,22 +21,15 @@
   }
 </style>
 </head>
-<body><div id="readme" class="container"><article class="markdown-body entry-content"><h1 id="rm-ha-">RM HA &#x57FA;&#x7840;</h1>
-<p>&#x7ED3;&#x5408;&#x4EE3;&#x7801;&#x548C;<a href="http://hackershell.cn/?p=1174">http://hackershell.cn/?p=1174</a> &#x53EF;&#x4EE5;&#x786E;&#x5B9A; RM &#x5E76;&#x6CA1;&#x6709;&#x5728;&#x5207;&#x6362;&#x8FC7;&#x7A0B;&#x4E2D;&#x5904;&#x7406;fence&#xFF0C;&#x800C;&#x662F;&#x5C06;&#x9694;&#x79BB;&#x64CD;&#x4F5C;&#x8D4B;&#x6743;&#x7ED9;RMStateStore &#xFF0C;&#x63A8;&#x8350;&#x7684;&#x65B9;&#x5F0F;&#x662F;&#xFF1A;ZKRMStateStore</p>
-<p>RM &#x662F;&#x5982;&#x4F55; &#x7528;ZKRMStateStore&#x6765;&#x907F;&#x514D;&#x8111;&#x88C2;<br>&#x6B63;&#x5E38;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;zk &#x4E0A;&#x5B58;&#x50A8;&#x7684;RM &#x4FE1;&#x606F;&#x683C;&#x5F0F;</p>
-<pre><code class="language-text">[zk: tbds-10-1-3-18:2181,tbds-10-1-3-30:2181,tbds-10-1-3-20:2181(CONNECTED) 10] ls /rmstore
-[ZKRMStateRoot]
-[zk: tbds-10-1-3-18:2181,tbds-10-1-3-30:2181,tbds-10-1-3-20:2181(CONNECTED) 11] ls /rmstore/ZKRMStateRoot
-[RMAppRoot, AMRMTokenSecretManagerRoot, EpochNode, RMDTSecretManagerRoot, RMVersionNode]</code></pre>
-<p>&#x901A;&#x8FC7;/rmstore/ZKRMStateRoot &#x8282;&#x70B9;&#x7684;&#x6743;&#x9650;&#xFF0C;&#x53EF;&#x77E5;&#x540C;&#x65F6;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x80FD;&#x8FDB;&#x884C;&#x5199;&#x64CD;&#x4F5C;</p>
-<pre><code class="language-text">[zk: tbds-10-1-3-18:2181,tbds-10-1-3-30:2181,tbds-10-1-3-20:2181(CONNECTED) 4] getAcl /rmstore/ZKRMStateRoot
-&apos;world,&apos;anyone
-: rwa
-&apos;digest,&apos;tbds-10-1-3-26:vqMG85jYBFVbN5G2KRaOrqZVeqc=
-: cd</code></pre>
-<p>&#x83B7;&#x53D6;zookeeper &#x8282;&#x70B9;&#x6743;&#x9650; getAcl node zookeeper &#x6743;&#x9650;&#x4FE1;&#x606F;&#x8BF4;&#x660E; &#x53C2;&#x8003;&#xFF1A;<a href="http://www.yoonper.com/post.php?id=47">http://www.yoonper.com/post.php?id=47</a></p>
-<p>&#x56E0;&#x4E3A;&#x5F3A;&#x4F9D;&#x8D56;zk,&#x6240;&#x4EE5;&#x6709;&#x5FC5;&#x8981;&#x4E86;&#x89E3;&#x4E00;&#x4E0B; node &#x5C5E;&#x6027;&#x4FE1;&#x606F;&#xFF0C;&#x5982; dataVersion &#x7B49;&#xFF0C;&#x53C2;&#x8003;&#xFF1A;<a href="https://blog.csdn.net/lihao21/article/details/51810395">https://blog.csdn.net/lihao21/article/details/51810395</a></p>
-<p>RM HA&#x66F4;&#x591A;&#x53C2;&#x8003;&#xFF1A;<a href="https://docs.cloudera.com/documentation/enterprise/6/6.3/topics/cdh_hag_rm_ha_config.html#xd_583c10bfdbd326ba--43d5fd93-1410993f8c2--7f77">https://docs.cloudera.com/documentation/enterprise/6/6.3/topics/cdh_hag_rm_ha_config.html#xd_583c10bfdbd326ba--43d5fd93-1410993f8c2--7f77</a></p>
+<body><div id="readme" class="container"><article class="markdown-body entry-content"><h1 id="rm-">RM &#x9AD8;&#x53EF;&#x7528;</h1>
+<h2 id="1-rm-ha-">1. RM HA&#x57FA;&#x7840;</h2>
+<p>RM &#x9AD8;&#x53EF;&#x7528;&#x4F9D;&#x8D56;&#x7684;&#x57FA;&#x7840;&#x77E5;&#x8BC6;&#xFF0C;&#x6BD4;&#x5982; RM &#x5F3A;&#x4F9D;&#x8D56;zk ,zk&#x7279;&#x6027;&#x5982;&#x4F55;&#xFF0C;RM HA &#x662F;&#x5982;&#x4F55;&#x4F7F;&#x7528;zk</p>
+<h2 id="2-rm-ha-">2. RM HA&#x7ED3;&#x6784;</h2>
+<p>RM &#x9AD8;&#x53EF;&#x7528;&#x5305;&#x62EC;&#x54EA;&#x4E9B;&#x90E8;&#x5206;&#xFF0C;&#x76F8;&#x4E92;&#x4E4B;&#x95F4;&#x7684;&#x8054;&#x7CFB;</p>
+<h2 id="3-rm-ha-">3. RM HA &#x5207;&#x6362;&#x903B;&#x8F91;</h2>
+<p>RM &#x4E3B;&#x5907;&#x5207;&#x6362;&#x7684;&#x8FC7;&#x7A0B;&#x548C;&#x903B;&#x8F91;</p>
+<h2 id="4-rm-ha-">4. RM HA &#x4F7F;&#x7528;&#x8FC7;&#x7A0B;&#x7684;&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h2>
+<h2 id="5-rm-ha-namenode-ha-">5. RM HA &#x548C; NameNode HA &#x5DEE;&#x5F02;</h2>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>

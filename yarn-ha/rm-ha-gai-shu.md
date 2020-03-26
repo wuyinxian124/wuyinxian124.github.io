@@ -1,9 +1,9 @@
-# RM HA 概述
+# RM HA 基础
 
 结合代码和[http://hackershell.cn/?p=1174](http://hackershell.cn/?p=1174) 可以确定 RM 并没有在切换过程中处理fence，而是将隔离操作赋权给RMStateStore ，推荐的方式是：ZKRMStateStore
 
 RM 是如何 用ZKRMStateStore来避免脑裂  
-1. 正常情况下，zk 上存储的RM 信息格式
+正常情况下，zk 上存储的RM 信息格式
 
 ```text
 [zk: tbds-10-1-3-18:2181,tbds-10-1-3-30:2181,tbds-10-1-3-20:2181(CONNECTED) 10] ls /rmstore
