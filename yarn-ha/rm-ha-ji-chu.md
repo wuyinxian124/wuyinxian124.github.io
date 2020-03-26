@@ -1,3 +1,7 @@
+---
+description: RM HA 基础知识
+---
+
 # RM HA 基础
 
 结合代码和[http://hackershell.cn/?p=1174](http://hackershell.cn/?p=1174) 可以确定 RM 并没有在切换过程中处理fence，而是将隔离操作赋权给RMStateStore ，推荐的方式是：ZKRMStateStore
