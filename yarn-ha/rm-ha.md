@@ -26,9 +26,9 @@ RM B会调用 fence 接口，尝试将RM A  隔离。
 
 ## 3. RM HA 使用过程的注意事项和异常分析  
 ### 3.1 RMStateStore 选择很重要  
-hadoop 提供了四种stateStore:FileSystemRMStateStore,LeveldbRMStateStore,MemoryRMStateStore,NullRMStateStore  
+hadoop 提供了五中种stateStore:ZKRMStateStore,FileSystemRMStateStore,LeveldbRMStateStore,MemoryRMStateStore,NullRMStateStore  
 后两者不能持久化 app state ，所以在主备切换过程中会丢失app 状态（YARN会kill 然后重新拉起）  
-前两者能够给持久化 APP state，所以主备切换过程不会丢失APP 状态，而且不会kill 再 拉起 APP。
+前三者能够给持久化 APP state，所以主备切换过程不会丢失APP 状态，而且不会kill 再 拉起 APP。
 
 ### 3.2 FenceMethod 选择很重要 （NameNode提供，RM fence为空-成功）    
 hadoop 提供了两种fence 实现：ShellCommandFencer，SshFenceByTcpPort     
@@ -48,16 +48,22 @@ ZK 发现RM A连接中断，会删除临时lock ，则其他RM 会竞争leader�
 
 ### 3.4 会不会出现脑裂？什么情况下回出现脑裂？  
 如上一点所描述的，RM 可能存在一段时间窗口有两个RM 为Active 状态。但是否会出现脑裂的情况？  
-需要看 stateStore 的实现方式     
+需要看 stateStore 的实现方式   
+如果是 MemoryRMStateStore 或 NullRMStateStore 方式，则在这一段时间窗口内，两个active RM 都能接收请求，并将app 等状态更新到内存或丢掉。  
+如果是前三者，比如 ZKRMStateStore（其他两者不分析）
+ZKRMStateStore 使用zk 来存储运行中的状态信息，其在zk 上的node 根节点 因为设置了同时只允许一个连接进行操作，所以如果碰见两个RM 同时操作的情况，其中一个会异常，并触发 transitionStandby 。但如果两个RM 是间歇写 ZK ，那就意味着脑裂。
 
-### 3.5. 会不会出现RM 无主？什么情况下会出现无主？    
+### 3.5 会不会出现RM 无主？什么情况下会出现无主？    
 
-### 3.6. RM 脑裂会带来什么问题，有没有办法避免？    
+### 3.6 RM 脑裂会带来什么问题，有没有办法避免？    
 
-### 3.7. RM 无主会带来什么问题，有没有办法避免？    
+### 3.7 RM 无主会带来什么问题，有没有办法避免？    
 
-### 3.8. RM HA 存在什么的问题？   
-  1. 使用ZkRMStateStore 情况下，因为app 状态更新都需要在更新之前创建一个Lock Node所以RM 在状态更新是串行的，并意味着存在一个全局锁。
+### 3.8 RM HA 存在什么的问题？   
+  1. 使用ZkRMStateStore 情况下，因为app 状态更新都需要在更新之前创建一个Lock Node所以RM 在状态更新是串行的，并意味着存在一个全局锁。   
+  2. 使用ZkRMStateStore 情况下，强依赖zk ，但是zk 对单节点的限制是 1M,如果节点信息大于这个数量，则会导致 ZkRMStateStore 重试，如果参数设置不对，则会导致RM 跟zk 频繁重试，从而影响RM 正常工作。  
+  3. 如果RM failover的时间比较长，则有可能导致 NodeManager 终止。   
 
 
 ## 4. RM HA 和 NameNode HA 差异
+1. 相比较而言 因为NameNode 有独立的zkfc 所以能够快速捕捉到 NameNode 异常，从而实现failover。而RM 因为是内嵌的选举，所以即使异常，也要等zk 连接超时，这种情况下 failover 花费时间更多。
