@@ -17,5 +17,6 @@
   * [RM下发App](submit_app/rmissueapp.md)
   * [NM拉起APP](submit_app/nm_app.md)
 * [YARN 高可用](yarn-ha/README.md)
-  * [RM HA 概述](yarn-ha/rm-ha-gai-shu.md)
+  * [RM HA 基础](yarn-ha/rm-ha-ji-chu.md)
   * [RM HA](yarn-ha/rm-ha.md)
+
