@@ -26,7 +26,8 @@ private final StateMachine<RMAppState, RMAppEventType, RMAppEvent>
                                                                stateMachine;
 ```
 
-状态机将对象的输入，状态转换，输出过程梳理为如下五个过程： ![](../.gitbook/assets/statemachine2.png)  
+状态机将对象的输入，状态转换，输出过程梳理为如下五个过程：    
+![](../.gitbook/assets/statemachine2.png)  
 1. 在prevState状态，接收到事件event，变成postState状态  
 2. 在prevState状态，接收到事件event，触发hook操作，变成postState状态  
 3. 在prevState状态，接收到事件event1或event2或event3，变成postState状态  
@@ -41,13 +42,24 @@ StateMachineFactory 其内部维护两个缓存:
 2. final TransitionsListNode transitionsListNode
 
 **stateMachineTable**  
+结构为：
+```java
+Map<STATE, Map<EVENTTYPE,
+            Transition<OPERAND, STATE, EVENTTYPE, EVENT>>> stateMachineTable
+```            
 是两层map ，存放状态和事件类型对应的转移操作（很大程度上是为了检索更加方便），表示某个状态碰见某个事件类型，触发什么转换操作。  
 其存储结构可以通过下图来表示  
 ![](../.gitbook/assets/statemachine3.png)
 
 **transitionsListNode**  
-是一个状态转移操作对象（ApplicableSingleOrMultipleTransition）列表，如下图所示  
-![](../.gitbook/assets/statemachine4.png) ApplicableSingleOrMultipleTransition 有三个属性，preState,事件类型，触发操作。  
+是一个状态转移操作对象（ApplicableSingleOrMultipleTransition）列表，如下图所示   
+![](../.gitbook/assets/statemachine4.png)   
+其内部只有一个属性 ApplicableTransition（该接口只有一个方法apply），唯一的实现是ApplicableSingleOrMultipleTransition   
+ApplicableSingleOrMultipleTransition 有三个属性:  
+preState 触发前的状态。   
+eventType 事件类型。  
+Transition<OPERAND, STATE, EVENTTYPE, EVENT> 执行触发操作。   
+
 stateMachineTable 需要在 transitionsListNode支持下才能构建。  
 构建逻辑是：先将所有的状态流转流程和触发操作写入 transitionsListNode，然后遍历transitionsListNode，来构建 stateMachineTable
 
@@ -189,9 +201,8 @@ private STATE doTransition
 
 上面详细说明了状态机的实现机理，相信在YARN代码中遇到状态机的代码view的思路就更清晰了。就可以不用纠结状态机的内部逻辑，而直接从状态机构建来了解对象的流转过程，甚至可以通过下图，直接了解resourceManager和NodeManger的各 个对象的状态流转过程。  
 下面给出通过代码转换来的YARN各个对象的状态转换图  
- 
+
 
 ![](../.gitbook/assets/statem5.png)
 
 ![](../.gitbook/assets/state6.png)
-
