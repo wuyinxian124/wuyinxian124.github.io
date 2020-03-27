@@ -19,4 +19,6 @@
 * [YARN 高可用](yarn-ha/README.md)
   * [RM HA 基础](yarn-ha/rm-ha-ji-chu.md)
   * [RM HA](yarn-ha/rm-ha.md)
+* [YARN调度策略](yarn-scheduler/README.md)
+  * [YARN-队列配置](yarn-scheduler/yarn-queue.md)
 
