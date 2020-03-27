@@ -178,6 +178,12 @@ d. 将构建到状态机赋值给变量
 ```java
 final StateMachine<RMAppState, RMAppEventType, RMAppEvent> this.stateMachine = stateMachineFactory.make(this);
 ```
+InternalStateMachine 对象关键是实现了StateMachine<STATE, EVENTTYPE, EVENT> ，并内部存了两个属性：  
+状态机实例和状态机当前状态
+```java
+private final OPERAND operand;
+private STATE currentState;
+```
 
 #### 3.4.2 生成事件，触发状态机
 
