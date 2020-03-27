@@ -105,7 +105,8 @@ private StateMachineFactory
 #### 3.3.3 构建
 
 待所有都状态流转都添加进状态机，状态机就需要开始构建内部缓存。调用的是构造函数3，构造函数 传入的 optimized 参数为true。  
-该构造函数通过调用makeStateMachineTable\(\) 方法，将缓存在 transitionsListNode 的流转流程，转换为两层map,缓存到stateMachineTable
+该构造函数通过调用makeStateMachineTable\(\) 方法，  
+该方法将缓存在 transitionsListNode 的流转流程，转换并存到为两层map stateMachineTable
 
 ```java
   private StateMachineFactory
@@ -136,11 +137,39 @@ b. 调用StateMachineFactory 第二个构造函数，添加状态流转流程
   .addTransition(RMAppState.NEW, RMAppState.NEW_SAVING,
     RMAppEventType.START, new RMAppNewlySavingTransition())
 ```
-
+第二个构造函数其实就干了一件事情：构建 transitionsListNode 链   
+```java
+this.transitionsListNode
+        = new TransitionsListNode(t, that.transitionsListNode);
+```        
 c. 调用StateMachineFactory 第三个构造函数，完成状态机构建,并将状态机赋值给变量stateMachine
 
 ```java
 .installTopology()
+``
+`
+第三个构造函数其实最终调用的就是 makeStateMachineTable 方法  
+该方法内容包括：  
+1. 初始化一个空的 两层map stateMachineTable   
+2. 遍历 transitionsListNode 链  
+3. 从 transitionsListNode 链中取出 ApplicableTransition<OPERAND, STATE, EVENTTYPE, EVENT>  对象，并执行其 apply() 方法  
+apply 方法是实际的构建 两层 map stateMachineTable 的过程
+```java
+@Override
+public void apply
+        (StateMachineFactory<OPERAND, STATE, EVENTTYPE, EVENT> subject) {
+    Map<EVENTTYPE, Transition<OPERAND, STATE, EVENTTYPE, EVENT>> transitionMap
+            = subject.stateMachineTable.get(preState);
+    if (transitionMap == null) {
+        // I use HashMap here because I would expect most EVENTTYPE's to not
+        //  apply out of a particular state, so FSM sizes would be
+        //  quadratic if I use EnumMap's here as I do at the top level.
+        transitionMap = new HashMap<EVENTTYPE,
+                Transition<OPERAND, STATE, EVENTTYPE, EVENT>>();
+        subject.stateMachineTable.put(preState, transitionMap);
+    }
+    transitionMap.put(eventType, transition);
+}
 ```
 
 d. 将构建到状态机赋值给变量  
@@ -178,7 +207,7 @@ a. 接收事件
 ```
 
 b. 触发流转操作  
-执行堆栈： InternalStateMachine.doTransition\(\) -&gt; StateMachineFactory.this.doTransition\(\) -&gt; SingleInternalArc.doTransition\(\) -&gt; SingleArcTransition.transition\(\) -&gt; RMAppTransition.transition\(\) -&gt; RMAppNewlySavingTransition.transition\(\)  
+执行堆栈： stateMachine.doTransition() -> InternalStateMachine.doTransition\(\) -&gt; StateMachineFactory.this.doTransition\(\) -&gt; SingleInternalArc/MultipleInternalArc.doTransition\(\) -&gt; SingleArcTransition/MultipleArcTransition.transition\(\) -&gt; RMAppTransition.transition\(\) -&gt; RMAppNewlySavingTransition.transition\(\)  
 在状态机内部，通过如下逻辑找到事件+状态 需要触发的操作 RMAppNewlySavingTransition.transition\(\)
 
 ```java
