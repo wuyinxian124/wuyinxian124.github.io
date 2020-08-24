@@ -6,7 +6,7 @@ TEZ 资源不释放问题分析
 
 YARN UI 显示 APP 还在运行，但是任务实例已经显示成功。
 
-## 分析
+## 异常分析
 ### 业务进程
 #### 实例进程
 首先怀疑是我们后台进程异常，导致runner进程挂了，但是beeline进程还在  
@@ -50,6 +50,9 @@ YARN UI 查询 container 001 (AM container)
 ![](https://qqadapt.qpic.cn/txdocpic/0/321a4fb5464c075fa035bcc98ae6232e/0)
 
 ![](https://qqadapt.qpic.cn/txdocpic/0/56b53f7d11f0aecb453513c9deabd818/0)
+
+## 问题分析
+通过异常日志关键字 ，我们确认是因为Timer line server保存到日志太多，导致timer server处理am 请求超时，所以am 一直在重试，但是这个时候am 对应到app 状态已经变更为成功，客户端已经退出，却遗留了一个app的尾巴
 
 ## 解决
 
