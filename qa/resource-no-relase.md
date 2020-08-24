@@ -8,13 +8,10 @@ YARN UI 显示 APP 还在运行，但是任务实例已经显示成功。
 
 ## 分析
 
-首先
-
 #### 进程信息
-
-工作流侧确认实例实例是否正常结束，beeline 是否正常结束
-
-结论：任务实例runner 结束，对应beeline 进程不存在
+首先怀疑是我们后台进程异常，导致runner进程挂了，但是beeline进程还在  
+通过后台进程关键字确认：
+任务实例runner 结束，对应beeline 进程不存在
 
 ![](https://qqadapt.qpic.cn/txdocpic/0/4e9962cac0c00e788262f744786439f8/0)
 
@@ -69,4 +66,3 @@ YARN UI 确认 container 为001 一号container ，为AM
 ![](https://qqadapt.qpic.cn/txdocpic/0/6c0f57790b255a6c7e36978fd2e9bbb8/0)
 
 对应value 替换为 org.apache.tez.dag.history.logging.impl.SimpleHistoryLoggingService
-
