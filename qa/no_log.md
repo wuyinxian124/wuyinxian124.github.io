@@ -6,7 +6,9 @@ description: yarn application 日志无法打开
 
 ## 现象
 
-yarn UI 主页可以进去但是具体的container 日志链接显示如下异常![](https://note.youdao.com/yws/public/resource/2a7ab9331491725461c53e658f5bff9d/xmlnote/ECD926F5E7B54E9995837C0683A25138/20340)
+yarn UI 主页可以进去但是具体的container 日志链接显示如下异常
+
+![](https://note.youdao.com/yws/public/resource/2a7ab9331491725461c53e658f5bff9d/xmlnote/ECD926F5E7B54E9995837C0683A25138/20340)
 
 同时发现正在运行的app 日志可见。
 
@@ -33,7 +35,9 @@ yarn.log-aggregation.retain-seconds: 聚合后的日志文件在多久后被删�
 yarn.log.server.url: 应用结束后NodeManager会将网页访问自动跳转到聚合日志的地址, 指向的是 JobHistory上的地址.  
 最终能够确认环境确实打开了日志聚合。
 
-观察一段时间，发现在本地生成的container 日志文件回被删除，但是Hadoop 对应目录无相应数据所以就明确了肯定是聚合过程失败了查看yarn nodemanager 日志通过关键字： logaggregation![](https://note.youdao.com/yws/public/resource/2a7ab9331491725461c53e658f5bff9d/xmlnote/AF7A16C26A0547ADB7B82B6EE159300A/20364)
+观察一段时间，发现在本地生成的container 日志文件回被删除，但是Hadoop 对应目录无相应数据所以就明确了肯定是聚合过程失败了查看yarn nodemanager 日志通过关键字： logaggregation
+
+![](https://note.youdao.com/yws/public/resource/2a7ab9331491725461c53e658f5bff9d/xmlnote/AF7A16C26A0547ADB7B82B6EE159300A/20364)
 
 
 
