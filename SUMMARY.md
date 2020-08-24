@@ -22,10 +22,8 @@
 * [YARN调度策略](yarn-scheduler/README.md)
   * [Untitled](yarn-scheduler/untitled.md)
   * [YARN-队列配置](yarn-scheduler/yarn-queue.md)
-* [问题分析总结](qa.md)
 * [问题分析总结](qa-1/README.md)
   * [yarn ui上看不了app 日志](qa-1/no_log.md)
   * [Untitled](qa-1/untitled.md)
   * [NM频繁挂掉](qa-1/nm-pin-fan-gua-diao.md)
-* [Untitled](untitled.md)
 
