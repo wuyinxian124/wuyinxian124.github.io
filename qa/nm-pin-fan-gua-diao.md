@@ -45,6 +45,7 @@ Caught java.lang.OutOfMemoryError: unable to create new native thread. One possi
 5. /etc/security/limits.d/yarn.conf
 
 ![](https://qqadapt.qpic.cn/txdocpic/0/0d0e80fa4a13a4117756fd2af7f24aee/0?w=1650&h=970)
+  
 从相关设置看，文件句柄符合系统要求
 
 ## 四.异常情况
@@ -107,22 +108,23 @@ ps h -Led -o user \| sort \| uniq -c \| sort -n
 ```
 ![](https://qqadapt.qpic.cn/txdocpic/0/a884e63bc8ffc2fc1dcc7fd39654b18e/0?w=524&h=199)
 
-1. 查看hfds用户创建的进程数，使用命令:
+2. 查看hfds用户创建的进程数，使用命令:
 ```
 ps -o nlwp,pid,lwp,args -u hdfs \| sort -n
 ```
 ![](https://qqadapt.qpic.cn/txdocpic/0/cad8dde6d3b4a22b072473718662f36f/0?w=483&h=92)
 
-1. 查看进程启动的精确时间和启动后所流逝的时间
+3. 查看进程启动的精确时间和启动后所流逝的时间
 
 ![](https://qqadapt.qpic.cn/txdocpic/0/d5ddfe0a4395bd9fef1d5893368c5bca/0?w=1588&h=210)
 
-1. grep 报错Binary file \(standard input\) matches
+4. grep 报错Binary file \(standard input\) matches
  cat 文件名 \| grep -a 特定条件
 ```
  比如： cat xxxx \| grep -a 12345
 ```
-1. 进程按启动时间排序
+
+5. 进程按启动时间排序
 ```
  ps aux --sort=start\_time\|grep Full\|grep -v grep
 ```
