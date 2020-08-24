@@ -19,7 +19,11 @@ yarn UI 主页可以进去但是具体的container 日志链接显示如下异�
 
 ## 分析
 
-参考下图 可以看到日志聚合的过程[https://blog.csdn.net/Androidlushangderen/article/details/90115624!\[\]\(https://note.youdao.com/yws/public/resource/2a7ab9331491725461c53e658f5bff9d/xmlnote/B26A28A6BB03405BB74FF4F94ED61815/20353](https://blog.csdn.net/Androidlushangderen/article/details/90115624![]%28https://note.youdao.com/yws/public/resource/2a7ab9331491725461c53e658f5bff9d/xmlnote/B26A28A6BB03405BB74FF4F94ED61815/20353)\)  
+参考下图 可以看到日志聚合的过程\([https://blog.csdn.net/Androidlushangderen/article/details/90115624](https://blog.csdn.net/Androidlushangderen/article/details/90115624)\)
+
+![&#x65E5;&#x5FD7;&#x805A;&#x5408;&#x8FC7;&#x7A0B;](../.gitbook/assets/image%20%281%29.png)
+
+  
 查看相关聚合配置
 
 当打开yarn.log-aggregation-enable为true时，会启用聚合

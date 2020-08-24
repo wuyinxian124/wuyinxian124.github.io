@@ -7,11 +7,13 @@ TEZ 资源不释放问题分析
 YARN UI 显示 APP 还在运行，但是任务实例已经显示成功。
 
 ## 异常分析
+
 ### 业务进程
+
 #### 实例进程
+
 首先怀疑是我们后台进程异常，导致runner进程挂了，但是beeline进程还在  
-通过后台进程关键字确认：
-任务实例runner 结束，对应beeline 进程不存在
+通过后台进程关键字确认： 任务实例runner 结束，对应beeline 进程不存在
 
 ![](https://qqadapt.qpic.cn/txdocpic/0/4e9962cac0c00e788262f744786439f8/0)
 
@@ -25,7 +27,7 @@ YARN UI 显示 APP 还在运行，但是任务实例已经显示成功。
 
 #### 查看不结束container
 
-YARN UI 查询 container 001 (AM container)
+YARN UI 查询 container 001 \(AM container\)
 
 #### 确定container 执行节点
 
@@ -52,15 +54,16 @@ YARN UI 查询 container 001 (AM container)
 ![](https://qqadapt.qpic.cn/txdocpic/0/56b53f7d11f0aecb453513c9deabd818/0)
 
 ## 问题分析
+
 通过异常日志关键字 ，我们确认是因为Timer line server保存到日志太多，导致timer server处理am 请求超时，所以am 一直在重试，但是这个时候am 对应到app 状态已经变更为成功，客户端已经退出，却遗留了一个app的尾巴
 
 ## 解决
 
 ### 临时解决方案
 
- 确认app 其他container 正常结束的情况下，通过异常日志确认业务逻辑已经执行成功，但是状态同步异常，可以直接终止死循环的session 进程。如执行 kill -9 267609
+确认app 其他container 正常结束的情况下，通过异常日志确认业务逻辑已经执行成功，但是状态同步异常，可以直接终止死循环的session 进程。如执行 kill -9 267609
 
- 终止session进程之后，RM 会拉起另一个（02号）AM 继续执行。状态同步一次之后会忽略异常，使得02 AM 结束退出。
+终止session进程之后，RM 会拉起另一个（02号）AM 继续执行。状态同步一次之后会忽略异常，使得02 AM 结束退出。
 
 ### 最终解决方案
 
@@ -69,3 +72,4 @@ YARN UI 查询 container 001 (AM container)
 ![](https://qqadapt.qpic.cn/txdocpic/0/6c0f57790b255a6c7e36978fd2e9bbb8/0)
 
 对应value 替换为 org.apache.tez.dag.history.logging.impl.SimpleHistoryLoggingService
+
