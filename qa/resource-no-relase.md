@@ -25,7 +25,7 @@ YARN UI 显示 APP 还在运行，但是任务实例已经显示成功。
 
 #### 查看不结束container
 
-YARN UI 确认 container 为001 一号container ，为AM
+YARN UI 查询 container 001 (AM container)
 
 #### 确定container 执行节点
 
