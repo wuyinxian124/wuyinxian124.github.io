@@ -24,25 +24,23 @@ NM 频繁挂掉问题分析和解决
 
 ## 三.句柄情况
 
-查看节点文件句柄设置
-
-###  1. /proc/sys/vm/max\_map\_count
+查看节点文件句柄设置 1. /proc/sys/vm/max\_map\_count
 
 ![](https://qqadapt.qpic.cn/txdocpic/0/f85518eee0cbd85d329452d89ecc18cf/0?w=1972&h=120)
 
-### 2./etc/sysctl.conf
+1. /etc/sysctl.conf
 
 ![](https://qqadapt.qpic.cn/txdocpic/0/780a46a4fccaa461a7e8e3bf403ba168/0?w=1992&h=1626)
 
-### 3./proc/sys/kernel/pid\_max
+1. /proc/sys/kernel/pid\_max
 
 ![](https://qqadapt.qpic.cn/txdocpic/0/ac8414916d03df6fe808dc94108f84f7/0?w=1292&h=108)
 
-### 4./etc/security/limits.conf
+1. /etc/security/limits.conf
 
 ![](https://qqadapt.qpic.cn/txdocpic/0/ca326685db7566f87ff799760eeca7a7/0?w=720&h=704)
 
-### 5./etc/security/limits.d/yarn.conf
+1. /etc/security/limits.d/yarn.conf
 
 ![](https://qqadapt.qpic.cn/txdocpic/0/0d0e80fa4a13a4117756fd2af7f24aee/0?w=1650&h=970)
 
@@ -106,35 +104,35 @@ jcmd 命令：[https://www.jianshu.com/p/388e35d8a09b](https://www.jianshu.com/p
 
 ## 九. 补充
 
-### 1.查看所有用户创建的进程数,使用命令：
+1. 查看所有用户创建的进程数,使用命令：
 
-```text
-ps h -Led -o user \| sort \| uniq -c \| sort -n
-```
+   ```text
+   ps h -Led -o user \| sort \| uniq -c \| sort -n
+   ```
 
-![](https://qqadapt.qpic.cn/txdocpic/0/a884e63bc8ffc2fc1dcc7fd39654b18e/0?w=524&h=199)
+   ![](https://qqadapt.qpic.cn/txdocpic/0/a884e63bc8ffc2fc1dcc7fd39654b18e/0?w=524&h=199)
 
-### 2.查看hfds用户创建的进程数，使用命令:
+2. 查看hfds用户创建的进程数，使用命令:
 
-```text
-ps -o nlwp,pid,lwp,args -u hdfs \| sort -n
-```
+   ```text
+   ps -o nlwp,pid,lwp,args -u hdfs \| sort -n
+   ```
 
-![](https://qqadapt.qpic.cn/txdocpic/0/cad8dde6d3b4a22b072473718662f36f/0?w=483&h=92)
+   ![](https://qqadapt.qpic.cn/txdocpic/0/cad8dde6d3b4a22b072473718662f36f/0?w=483&h=92)
 
-### 3.查看进程启动的精确时间和启动后所流逝的时间
+3. 查看进程启动的精确时间和启动后所流逝的时间
 
 ![](https://qqadapt.qpic.cn/txdocpic/0/d5ddfe0a4395bd9fef1d5893368c5bca/0?w=1588&h=210)
 
-### 4.grep 报错Binary file \(standard input\) matches cat 文件名 \| grep -a 特定条件
+1. grep 报错Binary file \(standard input\) matches cat 文件名 \| grep -a 特定条件
 
-```text
-比如： cat xxxx \| grep -a 12345
-```
+   ```text
+   比如： cat xxxx \| grep -a 12345
+   ```
 
-### 5.进程按启动时间排序
+2. 进程按启动时间排序
 
-```text
-ps aux --sort=start\_time\|grep Full\|grep -v grep
-```
+   ```text
+   ps aux --sort=start\_time\|grep Full\|grep -v grep
+   ```
 
