@@ -21,4 +21,6 @@
   * [RM HA](yarn-ha/rm-ha.md)
 * [YARN调度策略](yarn-scheduler/README.md)
   * [YARN-队列配置](yarn-scheduler/yarn-queue.md)
+* [问题分析总结](qa/README.md)
+  * [NM频繁挂掉](qa/nm-pin-fan-gua-diao.md)
 
