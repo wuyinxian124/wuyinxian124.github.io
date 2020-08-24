@@ -39,7 +39,7 @@ yarn.log-aggregation.retain-seconds: 聚合后的日志文件在多久后被删�
 yarn.log.server.url: 应用结束后NodeManager会将网页访问自动跳转到聚合日志的地址, 指向的是 JobHistory上的地址.  
 最终能够确认环境确实打开了日志聚合。
 
-观察一段时间，发现在本地生成的container 日志文件回被删除，但是Hadoop 对应目录无相应数据所以就明确了肯定是聚合过程失败了查看yarn nodemanager 日志通过关键字： logaggregation
+观察一段时间，发现在本地生成的container 日志文件回被删除，但是Hadoop 对应目录无相应数据所以就明确了肯定是聚合过程失败了查看yarn nodemanager 日志\(先通过container ID 到rm 主节点查询container 运行到NM，再通过container ID查询相关日志\)，而我们是日志聚合，可以直接通过通过关键字： logaggregation来过滤
 
 ![](https://note.youdao.com/yws/public/resource/2a7ab9331491725461c53e658f5bff9d/xmlnote/AF7A16C26A0547ADB7B82B6EE159300A/20364)
 
