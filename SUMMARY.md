@@ -22,8 +22,8 @@
 * [YARN调度策略](yarn-scheduler/README.md)
   * [Untitled](yarn-scheduler/untitled.md)
   * [YARN-队列配置](yarn-scheduler/yarn-queue.md)
-* [问题分析总结](qa-1/README.md)
-  * [yarn ui上看不了app 日志](qa-1/no_log.md)
-  * [TEZ 资源不释放问题分析](qa-1/resource-no-relase.md)
-  * [NM频繁挂掉](qa-1/nm-pin-fan-gua-diao.md)
+* [问题分析总结](qa/README.md)
+  * [yarn ui上看不了app 日志](qa/no_log.md)
+  * [TEZ 资源不释放问题分析](qa/resource-no-relase.md)
+  * [NM频繁挂掉](qa/nm-pin-fan-gua-diao.md)
 
