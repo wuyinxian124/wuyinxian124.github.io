@@ -27,18 +27,23 @@ Caught java.lang.OutOfMemoryError: unable to create new native thread. One possi
 ## 三.句柄情况
 查看节点文件句柄设置
 1. /proc/sys/vm/max\_map\_count
+
 ![](https://qqadapt.qpic.cn/txdocpic/0/f85518eee0cbd85d329452d89ecc18cf/0?w=1972&h=120)
 
 2. /etc/sysctl.conf
+
 ![](https://qqadapt.qpic.cn/txdocpic/0/780a46a4fccaa461a7e8e3bf403ba168/0?w=1992&h=1626)
 
 3. /proc/sys/kernel/pid\_max
+
 ![](https://qqadapt.qpic.cn/txdocpic/0/ac8414916d03df6fe808dc94108f84f7/0?w=1292&h=108)
 
 4. /etc/security/limits.conf
+
 ![](https://qqadapt.qpic.cn/txdocpic/0/ca326685db7566f87ff799760eeca7a7/0?w=720&h=704)
 
 5. /etc/security/limits.d/yarn.conf
+
 ![](https://qqadapt.qpic.cn/txdocpic/0/0d0e80fa4a13a4117756fd2af7f24aee/0?w=1650&h=970)
 从相关设置看，文件句柄符合系统要求
 
@@ -67,14 +72,14 @@ ps -eo cmd --sort=start\_time\|grep -v grep \|grep container\_executor \|sed 's/
 yarn application -status application
 
 ![](https://qqadapt.qpic.cn/txdocpic/0/7a6c9f43f96861cf6d6f5cfb0d62fcf8/0?w=2548&h=1414)
+
 如果state 为 finished 则可以用
 ```
-\ps -ef\|grep -v grep \|grep 1574737015641\_15941 \|awk '{print $2}'\|xargs  kill -15
+ps -ef\|grep -v grep \|grep 1574737015641\_15941 \|awk '{print $2}'\|xargs  kill -15
 ```
 终止。
 
 ## 七、写在最后
-
 综上所述，该问题导致的根本原因是有遗留的container 孤儿进程，根本的解决办法是有三
 
 1. AM 需要确保 其拉起的container 能被真正终止
@@ -109,10 +114,10 @@ ps -o nlwp,pid,lwp,args -u hdfs \| sort -n
 ![](https://qqadapt.qpic.cn/txdocpic/0/cad8dde6d3b4a22b072473718662f36f/0?w=483&h=92)
 
 1. 查看进程启动的精确时间和启动后所流逝的时间
+
 ![](https://qqadapt.qpic.cn/txdocpic/0/d5ddfe0a4395bd9fef1d5893368c5bca/0?w=1588&h=210)
 
 1. grep 报错Binary file \(standard input\) matches
-
  cat 文件名 \| grep -a 特定条件
 ```
  比如： cat xxxx \| grep -a 12345
