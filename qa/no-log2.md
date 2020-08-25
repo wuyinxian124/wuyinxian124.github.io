@@ -6,7 +6,7 @@ description: app 日志查看异常
 
 ## 现象
 
-
+![](../.gitbook/assets/image%20%284%29.png)
 
 ## 异常
 
