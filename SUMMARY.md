@@ -24,7 +24,8 @@
   * [YARN-队列配置](yarn-scheduler/yarn-queue.md)
 * [问题分析总结](qa/README.md)
   * [Yarn资源充足，但app等待调度排长队](qa/too-many-app-wait-launch.md)
-  * [yarn ui上看不了app 日志](qa/no_log.md)
+  * [yarn UI看不了app 日志](qa/no_log.md)
+  * [yarn UI看不了app 日志2](qa/no-log2.md)
   * [TEZ 资源不释放问题分析](qa/resource-no-relase.md)
   * [NM频繁挂掉](qa/nm-pin-fan-gua-diao.md)
 

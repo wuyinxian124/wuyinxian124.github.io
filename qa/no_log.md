@@ -2,7 +2,7 @@
 description: yarn application 日志无法打开
 ---
 
-# yarn ui上看不了app 日志
+# yarn UI看不了app 日志
 
 ## 现象
 
@@ -21,7 +21,7 @@ yarn UI 主页可以进去但是具体的container 日志链接显示如下异�
 
 参考下图 可以看到日志聚合的过程\([https://blog.csdn.net/Androidlushangderen/article/details/90115624](https://blog.csdn.net/Androidlushangderen/article/details/90115624)\)
 
-![&#x65E5;&#x5FD7;&#x805A;&#x5408;&#x8FC7;&#x7A0B;](../.gitbook/assets/image%20%281%29.png)
+![&#x65E5;&#x5FD7;&#x805A;&#x5408;&#x8FC7;&#x7A0B;](../.gitbook/assets/image%20%282%29.png)
 
   
 查看相关聚合配置
