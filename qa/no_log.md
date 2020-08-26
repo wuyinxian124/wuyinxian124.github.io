@@ -8,7 +8,7 @@ description: yarn application 日志无法打开
 
 yarn UI 主页可以进去但是具体的container 日志链接显示如下异常
 
-![](https://note.youdao.com/yws/public/resource/2a7ab9331491725461c53e658f5bff9d/xmlnote/ECD926F5E7B54E9995837C0683A25138/20340)
+![](/images/log1.png)
 
 同时发现正在运行的app 日志可见。
 
@@ -21,9 +21,9 @@ yarn UI 主页可以进去但是具体的container 日志链接显示如下异�
 
 参考下图 可以看到日志聚合的过程\([https://blog.csdn.net/Androidlushangderen/article/details/90115624](https://blog.csdn.net/Androidlushangderen/article/details/90115624)\)
 
-![&#x65E5;&#x5FD7;&#x805A;&#x5408;&#x8FC7;&#x7A0B;](../.gitbook/assets/image%20%282%29.png)
+![](../.gitbook/assets/image%20%282%29.png)
 
-  
+
 查看相关聚合配置
 
 当打开yarn.log-aggregation-enable为true时，会启用聚合
@@ -41,7 +41,7 @@ yarn.log.server.url: 应用结束后NodeManager会将网页访问自动跳转到
 
 观察一段时间，发现在本地生成的container 日志文件回被删除，但是Hadoop 对应目录无相应数据所以就明确了肯定是聚合过程失败了查看yarn nodemanager 日志\(先通过container ID 到rm 主节点查询container 运行到NM，再通过container ID查询相关日志\)，而我们是日志聚合，可以直接通过通过关键字： logaggregation来过滤
 
-![](https://note.youdao.com/yws/public/resource/2a7ab9331491725461c53e658f5bff9d/xmlnote/AF7A16C26A0547ADB7B82B6EE159300A/20364)
+![](/images/job2.png)
 
 
 
@@ -50,13 +50,13 @@ yarn.log.server.url: 应用结束后NodeManager会将网页访问自动跳转到
 确认异常跟NameSpace配额 相关  
 查询目录对应配额
 
-![](https://note.youdao.com/yws/public/resource/2a7ab9331491725461c53e658f5bff9d/xmlnote/446CB79914FC4CB792F4A417C37DF08A/20368)
+![](/images/job3.png)
 
 而其他无问题环境默认为
 
-![](https://note.youdao.com/yws/public/resource/2a7ab9331491725461c53e658f5bff9d/xmlnote/E060614E3D76409EAB663A6B07432077/20370)
+![](/images/job4.png)
 
-  
+
 因此我们直接取消掉目录对应配额
 
 ```text
@@ -64,4 +64,3 @@ hdfs dfsadmin -clrQuota /app-logs
 ```
 
 yarn UI 日志显示恢复正常
-
