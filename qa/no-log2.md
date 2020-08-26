@@ -41,8 +41,6 @@ description: app 日志查看异常
 打开historyserver 日志， /data/var/log/hadoop-mapreduce/mapred\]\# vim mapred-mapred-historyserver-tbds-9-37-23-115.log  
 获取如下异常信息
 
-  
-
 ![](../.gitbook/assets/jobhis2.png)
 
 ![](../.gitbook/assets/jobhis1.png)
