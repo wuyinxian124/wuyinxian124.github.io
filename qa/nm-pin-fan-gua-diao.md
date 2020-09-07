@@ -13,13 +13,14 @@ NM 频繁挂掉问题分析和解决
   ```text
    Caught java.lang.OutOfMemoryError: unable to create new native thread. One possible reason is that ulimit setting of 'max user processes' is too low. If so, do 'ulimit -u &lt;largerNum&gt;' and try again.
    ```   
-![](../.gitbook/assets//nm1.png)
+
+![](../.gitbook/assets/nm1.png)
 
 2. 节点内存足够（而且清理部分进程，使得空闲内存变大，问题依旧）
 
-![](../.gitbook/assets//nm2.png)
+![](../.gitbook/assets/nm2.png)
 
-![](../.gitbook/assets//nm3.png)
+![](../.gitbook/assets/nm3.png)
 
 ## 二.分析
 
