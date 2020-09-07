@@ -15,13 +15,13 @@ YARN UI 显示 APP 还在运行，但是任务实例已经显示成功。
 首先怀疑是我们后台进程异常，导致runner进程挂了，但是beeline进程还在  
 通过后台进程关键字确认： 任务实例runner 结束，对应beeline 进程不存在
 
-![](https://qqadapt.qpic.cn/txdocpic/0/4e9962cac0c00e788262f744786439f8/0)
+![](/images/tez1.png)
 
 #### 任务实例日志
 
 确认任务实例日志中没有明显异常信息，beeline 进程正常结束，beeline 标准输出有success 关键字
 
-![](https://qqadapt.qpic.cn/txdocpic/0/4f9a553bb060892b0d289f9b64f011dd/0)
+![](/images/tez2.png)
 
 ### YARN
 
@@ -37,21 +37,21 @@ YARN UI 查询 container 001 \(AM container\)
 
 在datanode 通过APPid 过滤三个进程，其中孙子进程（267609）应该就是不结束原因
 
-![](https://qqadapt.qpic.cn/txdocpic/0/cde0cdb68bf5ec94faaf6cc2bd88f34f/0)
+![](/images/tez3.png)
 
 #### 查看孙子进程日志
 
 查看进程信息中log.dir 指定目录
 
-![](https://qqadapt.qpic.cn/txdocpic/0/b38e0a3b34307594eb5f1593fa35c267/0)
+![](/images/tez4.png)
 
 #### 日志中异常信息
 
 如下：
 
-![](https://qqadapt.qpic.cn/txdocpic/0/321a4fb5464c075fa035bcc98ae6232e/0)
+![](/images/tez5.png)
 
-![](https://qqadapt.qpic.cn/txdocpic/0/56b53f7d11f0aecb453513c9deabd818/0)
+![](/images/tez6.png)
 
 ## 问题分析
 
@@ -69,7 +69,6 @@ YARN UI 查询 container 001 \(AM container\)
 
 修改TEZ 在hive server 节点 /etc/tez/conf/tez-site.xml 文件如下内容
 
-![](https://qqadapt.qpic.cn/txdocpic/0/6c0f57790b255a6c7e36978fd2e9bbb8/0)
+![](/images/tez7.png)
 
 对应value 替换为 org.apache.tez.dag.history.logging.impl.SimpleHistoryLoggingService
-
