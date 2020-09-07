@@ -10,13 +10,16 @@ NM 频繁挂掉问题分析和解决
 
 1. NM 频繁挂掉，而且出现NM 启动异常 重启异常日志如下：
 
-   ```text
+  ```text
    Caught java.lang.OutOfMemoryError: unable to create new native thread. One possible reason is that ulimit setting of 'max user processes' is too low. If so, do 'ulimit -u &lt;largerNum&gt;' and try again.
-   ```
+   ```   
+![](/images/nm1.png)
 
-   ![](https://qqadapt.qpic.cn/txdocpic/0/3dd06b5a9ee219602cf3709c259a12cd/0?w=2560&h=2560)
+2. 节点内存足够（而且清理部分进程，使得空闲内存变大，问题依旧）
 
-2. 节点内存足够（而且清理部分进程，使得空闲内存变大，问题依旧） ![](https://qqadapt.qpic.cn/txdocpic/0/4fb6945e230ff6bf54ea0877ee0caef6/0?w=2560&h=2560) ![](https://qqadapt.qpic.cn/txdocpic/0/2da50e6d8b9e739b1126ce11e1be09c7/0?w=2560&h=2560)
+![](/images/nm2.png)
+
+![](/images/nm3.png)
 
 ## 二.分析
 
@@ -28,35 +31,37 @@ NM 频繁挂掉问题分析和解决
 
 ###  1. /proc/sys/vm/max\_map\_count
 
-![](https://qqadapt.qpic.cn/txdocpic/0/f85518eee0cbd85d329452d89ecc18cf/0?w=1972&h=120)
+![](/images/nm4.png)
 
 ### 2./etc/sysctl.conf
 
-![](https://qqadapt.qpic.cn/txdocpic/0/780a46a4fccaa461a7e8e3bf403ba168/0?w=1992&h=1626)
+![](/images/nm5.png)
 
 ### 3./proc/sys/kernel/pid\_max
 
-![](https://qqadapt.qpic.cn/txdocpic/0/ac8414916d03df6fe808dc94108f84f7/0?w=1292&h=108)
+![](/images/nm6.png)
 
 ### 4./etc/security/limits.conf
 
-![](https://qqadapt.qpic.cn/txdocpic/0/ca326685db7566f87ff799760eeca7a7/0?w=720&h=704)
+![](/images/nm7.png)
 
 ### 5./etc/security/limits.d/yarn.conf
 
-![](https://qqadapt.qpic.cn/txdocpic/0/0d0e80fa4a13a4117756fd2af7f24aee/0?w=1650&h=970)
+![](/images/nm8.png)
 
 从相关设置看，文件句柄符合系统要求
 
 ## 四.异常情况
 
-在分析NM 进程的时候，我们注意到在NM 已经终止的节点中有几十个container 执行进程。 ![](https://qqadapt.qpic.cn/txdocpic/0/f76dd51f0563cae428f628fdc5cca477/0?w=2608&h=1560)
+在分析NM 进程的时候，我们注意到在NM 已经终止的节点中有几十个container 执行进程。   ![](/images/nm9.png)
 
 如上图所示，有部分进程在NM 终止后，持续了相当长的时间（有超过一个月）。 而且还有一个特征是，遗留的container 都是非001 号container
 
 ## 五.问题分析
 
-从container的输出日志看，container 一直在重连，应该是重连 AM 我们进一步分析 其对应的 001号 container 对应的输出日志，发现日志中有大量 终止 container 异常日志 ![](https://qqadapt.qpic.cn/txdocpic/0/85021b12816f2567c079f40d834abb86/0?w=2628&h=1498)
+从container的输出日志看，container 一直在重连，应该是重连 AM 我们进一步分析 其对应的 001号 container 对应的输出日志，发现日志中有大量 终止 container 异常日志
+
+![](/images/nm10.png)
 
 基于此 我们分析 在nodemanager 挂掉后（比如跟RM 连接超时），因为 001 container kill 其他container 也是通过nodemanager 来操作的，而且kill 不管是否成功都，都认为 container 被kill 了，然后001 退出，001 拉起的其他container 自然就附着到1 号进程了。从而遗留了大量container 孤儿进程消耗了文件句柄，从而导致上述问题。
 
@@ -72,7 +77,7 @@ ps -eo cmd --sort=start\_time\|grep -v grep \|grep container\_executor \|sed 's/
 
 对扫描出遗留的container 孤儿对应的 APP，然后再通过下面命令，确认 APP 已经执行完 yarn application -status application
 
-![](https://qqadapt.qpic.cn/txdocpic/0/7a6c9f43f96861cf6d6f5cfb0d62fcf8/0?w=2548&h=1414)
+![](/images/nm11.png)
 
 如果state 为 finished 则可以用
 
@@ -112,7 +117,7 @@ jcmd 命令：[https://www.jianshu.com/p/388e35d8a09b](https://www.jianshu.com/p
 ps h -Led -o user \| sort \| uniq -c \| sort -n
 ```
 
-![](https://qqadapt.qpic.cn/txdocpic/0/a884e63bc8ffc2fc1dcc7fd39654b18e/0?w=524&h=199)
+![](/images/nm12.png)
 
 ### 2.查看hfds用户创建的进程数，使用命令:
 
@@ -120,11 +125,11 @@ ps h -Led -o user \| sort \| uniq -c \| sort -n
 ps -o nlwp,pid,lwp,args -u hdfs \| sort -n
 ```
 
-![](https://qqadapt.qpic.cn/txdocpic/0/cad8dde6d3b4a22b072473718662f36f/0?w=483&h=92)
+![](/images/nm13.png)
 
 ### 3.查看进程启动的精确时间和启动后所流逝的时间
 
-![](https://qqadapt.qpic.cn/txdocpic/0/d5ddfe0a4395bd9fef1d5893368c5bca/0?w=1588&h=210)
+![](/images/nm14.png)
 
 ### 4.grep 报错Binary file \(standard input\) matches cat 文件名 \| grep -a 特定条件
 
@@ -137,4 +142,3 @@ ps -o nlwp,pid,lwp,args -u hdfs \| sort -n
 ```text
 ps aux --sort=start\_time\|grep Full\|grep -v grep
 ```
-
