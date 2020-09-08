@@ -113,7 +113,7 @@ return requestedQueue;
 ```
 
 ### 补充
-环境恢复方法（无法）  
+环境恢复方法（概述）  
 1. 先停止YARN   
 2. 查看数据   
 查看目录ls /rmstore/ZKRMStateRoot/RMAppRoot  
