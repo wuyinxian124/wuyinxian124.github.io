@@ -20,12 +20,14 @@ description: YARN active rm停止，standby by rm 切主失败，两个rm 都是
 从active rm 日志中，发现如下异常   
 
 ![](/images/rm2.png)
+
 该异常可以看出，rm 挂掉的原因是 提交过来的一个app ,触发来创建队列操作，但是指标却已经存在该队列，因为 APP_ADDED 事件处理是在 rm 入口类 ResourceManager ，所以直接导致 RM 异常退出
 
 ### 2. standby RM 日志
 从原来到standby rm 日志中 ，发现如下异常
 
 ![](/images/rm3.png)
+
 通过该异常可以看出，standby rm 已经被触发尝试做主节点，但是在恢复app 状态过程中出现异常，但是切主失败   
 
 上面两个原因导致整个YARN 集群没有可用的RM
@@ -37,9 +39,11 @@ description: YARN active rm停止，standby by rm 切主失败，两个rm 都是
 从日志中过滤 app ID 发现RM 接收的app 提交命令中 队列指定值有空格  
 
 ![](/images/rm4.png)
+
 而这个空格是用户后台提交都hive 命令行中指定的  
 
 ![](/images/rm6.png)
+
 该问题可以在测试环境复现，会导致原来的active rm 异常退出
 
 ### 2. 代码分析
@@ -109,10 +113,10 @@ return requestedQueue;
 ```
 
 ### 补充
-环境恢复方法（无法）
-1. 先停止YARN
-2. 查看数据
-查看目录ls /rmstore/ZKRMStateRoot/RMAppRoot
-3. 删除
-不为空则使用该命令rmr /rmstore/ZKRMStateRoot/RMAppRoot/* 删除目录文件
-4. 重启YARN
+环境恢复方法（无法）  
+1. 先停止YARN   
+2. 查看数据   
+查看目录ls /rmstore/ZKRMStateRoot/RMAppRoot  
+3. 删除   
+不为空则使用该命令rmr /rmstore/ZKRMStateRoot/RMAppRoot/* 删除目录文件   
+4. 重启YARN   
