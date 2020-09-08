@@ -103,7 +103,7 @@ Q_SPLITTER.split(name);
     <rule name="default" queue="default"/>
 </queuePlacementPolicy>
 ```
-我们修改specified 对应的 QueuePlacementRule
+我们修改specified 对应的 QueuePlacementRule 代码
 ```
 if (!requestedQueue.startsWith("root.")) {
   requestedQueue = "root." + requestedQueue;
