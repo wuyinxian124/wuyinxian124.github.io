@@ -1,5 +1,5 @@
 ---
-description: YARN active rm停止，standby by rm 切主失败，两个rm 都是standby,yarn 状态异常
+description: YARN active rm停止，standby rm 切主失败，两个rm 都是standby,YARN 服务异常
 ---
 
 # YARN RM 无主
@@ -91,7 +91,7 @@ Q_SPLITTER.split(name);
 所以关键还是使得rm 中 队列缓存和指标缓存所使用的关键字是一一对应的。  
 即使用Splitter 来切分queueName
 有两个办法：   
-1. 在fairScheduler.java 修改
+1. 在fairScheduler.java 修改  
 2. 在QueuePlacementRule 修改
 
 第一种方式 不是通用方法，所以我们选择第二种
