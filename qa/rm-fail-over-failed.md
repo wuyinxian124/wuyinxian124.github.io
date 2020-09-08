@@ -1,5 +1,5 @@
 ---
-description: YARN active rm停止，standby rm 切主失败，两个rm 都是standby,YARN 服务异常
+description: YARN active rm停止，standby rm 切主失败，两个rm 都是standby，YARN 服务异常
 ---
 
 # YARN RM 无主
