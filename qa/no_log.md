@@ -2,7 +2,7 @@
 description: yarn application 日志无法打开
 ---
 
-# yarn UI看不了app 日志
+# YARN UI看不了app 日志
 
 ## 现象
 

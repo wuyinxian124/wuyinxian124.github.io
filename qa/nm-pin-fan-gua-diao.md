@@ -10,13 +10,13 @@ NM 频繁挂掉问题分析和解决
 
 1. NM 频繁挂掉，而且出现NM 启动异常 重启异常日志如下：
 
-  ```text
+   ```text
    Caught java.lang.OutOfMemoryError: unable to create new native thread. One possible reason is that ulimit setting of 'max user processes' is too low. If so, do 'ulimit -u &lt;largerNum&gt;' and try again.
-   ```   
+   ```
 
 ![](../.gitbook/assets/nm1.png)
 
-2. 节点内存足够（而且清理部分进程，使得空闲内存变大，问题依旧）
+1. 节点内存足够（而且清理部分进程，使得空闲内存变大，问题依旧）
 
 ![](../.gitbook/assets/nm2.png)
 
@@ -30,7 +30,7 @@ NM 频繁挂掉问题分析和解决
 
 查看节点文件句柄设置
 
-###  1. /proc/sys/vm/max\_map\_count
+### 1. /proc/sys/vm/max\_map\_count
 
 ![](../.gitbook/assets/nm4.png)
 
@@ -54,7 +54,7 @@ NM 频繁挂掉问题分析和解决
 
 ## 四.异常情况
 
-在分析NM 进程的时候，我们注意到在NM 已经终止的节点中有几十个container 执行进程。   
+在分析NM 进程的时候，我们注意到在NM 已经终止的节点中有几十个container 执行进程。
 
 ![](../.gitbook/assets/nm9.png)
 
@@ -120,7 +120,7 @@ jcmd 命令：[https://www.jianshu.com/p/388e35d8a09b](https://www.jianshu.com/p
 ps h -Led -o user \| sort \| uniq -c \| sort -n
 ```
 
-![](/images/nm12.jpeg)
+![](../.gitbook/assets/nm12.jpeg)
 
 ### 2.查看hfds用户创建的进程数，使用命令:
 
@@ -145,3 +145,4 @@ ps -o nlwp,pid,lwp,args -u hdfs \| sort -n
 ```text
 ps aux --sort=start\_time\|grep Full\|grep -v grep
 ```
+

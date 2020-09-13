@@ -2,7 +2,7 @@
 description: app 日志查看异常
 ---
 
-# yarn UI看不了app 日志2
+# YARN UI看不了app 日志2
 
 ## 现象
 
