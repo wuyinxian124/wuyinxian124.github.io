@@ -28,5 +28,6 @@
   * [YARN UI看不了app 日志2](qa/no-log2.md)
   * [TEZ 资源不释放问题分析](qa/resource-no-relase.md)
   * [NM频繁挂掉](qa/nm-pin-fan-gua-diao.md)
+  * [container执行异常](qa/container-exe-failed.md)
   * [YARN RM主备切换异常](qa/rm-fail-over-failed.md)
 
