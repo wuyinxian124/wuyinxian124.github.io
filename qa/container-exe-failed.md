@@ -42,7 +42,7 @@ description: 用户提交app的app之后，如果container 被提交到特定到
 
 #### 手动检查执行执行资源
 1. 获取CLASSPATH   
-修改执行脚本launch_container.sh 打印 CLASSPATH  
+修改执行脚本launch_container.sh 打印 CLASSPATH   
 ![](/images/exe2.png)
 
 2. 从 CLASSPATH 结果路径中查询是否有hadoop-mapreduce-client-app*.jar   
@@ -51,11 +51,14 @@ description: 用户提交app的app之后，如果container 被提交到特定到
 3. 如果 CLASSPATH 确认没有对应 jar ,那应该存放哪里呢？   
 我们确认一下container 执行目录资源   
 ![](/images/exe3.png)  
+
 从子目录详情看 最有可能在 mr-framework 目录（软连目录）  
 查看正常情况下的目录情况  
 ![](/images/exe5.png)  
-而实际情况，我们看到的是  
+
+而实际情况，我们看到的是   
 ![](/images/exe4.png)  
+
 也就是这里是一个不断软连的目录，没有真实的资源
 
 #### 解决方案
