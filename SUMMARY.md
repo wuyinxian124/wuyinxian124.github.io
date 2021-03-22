@@ -23,6 +23,7 @@
   * [Untitled](yarn-scheduler/untitled.md)
   * [YARN-队列配置](yarn-scheduler/yarn-queue.md)
 * [问题分析总结](qa/README.md)
+  * [集群繁忙时偶发性空指针导致app执行失败](qa/app-failed-rm-exit.md)
   * [YARN 资源充足，但app等待调度排长队](qa/too-many-app-wait-launch.md)
   * [YARN UI看不了app 日志](qa/no_log.md)
   * [YARN UI看不了app 日志2](qa/no-log2.md)
