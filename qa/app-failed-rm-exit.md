@@ -64,6 +64,24 @@ attempt.RMAppAttemptImpl (RMAppAttemptImpl.java:rememberTargetTransitionsAndStor
 
 我们19:14:04,023 看到日志关键字： Done launching 。说明AM已经被发送到NodeManager 。然后接下来第二行日志 （也就是19:14:09）我们看到日志关键字：AM registration 。这就是说在 14分04秒RM下发完成，14分09秒AM就来注册了。接下来神奇的事情发生了，也就是再下面第二行（也就是19:14:16）我们看到RMAppAttempt 状态变化了（change from ALLOCATED to LAUNCHED）。
 
+我们比较一个成功的app 对应的RM处理日志，则没有上面描述的问题
+
+```text
+2021-03-22 10:51:17,048 INFO  amlauncher.AMLauncher (AMLauncher.java:run(249)) - Launching masterappattempt_1616340089879_4264_000001
+2021-03-22 10:51:17,048 INFO  amlauncher.AMLauncher (AMLauncher.java:launch(105)) - Setting up container Container: [ContainerId: container_e12_1616340089879_4264_01_000001, NodeId: tbds-172-29-0-125:45454, NodeHttpAddress: tbds-172-29-0-125:8042, Resource: <memory:4096, vCores:1>, Priority: 0, Token: Token { kind: ContainerToken, service: 172.29.0.125:45454 }, ] for AM appattempt_1616340089879_4264_000001
+2021-03-22 10:51:17,048 INFO  amlauncher.AMLauncher (AMLauncher.java:createAMContainerLaunchContext(187)) - Command to launch container container_e12_1616340089879_4264_01_000001 : $JAVA_HOME/bin/java -Djava.io.tmpdir=$PWD/tmp -Dlog4j.configuration=container-log4j.properties -Dyarn.app.container.log.dir=<LOG_DIR> -Dyarn.app.container.log.filesize=0 -Dhadoop.root.logger=INFO,CLA -Dhadoop.root.logfile=syslog -Dhdp.version=2.2.0.0-2041 -Xmx3072m org.apache.hadoop.mapreduce.v2.app.MRAppMaster 1><LOG_DIR>/stdout 2><LOG_DIR>/stderr 
+2021-03-22 10:51:17,048 INFO  security.AMRMTokenSecretManager (AMRMTokenSecretManager.java:createAndGetAMRMToken(195)) - Create AMRMToken for ApplicationAttempt: appattempt_1616340089879_4264_000001
+2021-03-22 10:51:17,048 INFO  security.AMRMTokenSecretManager (AMRMTokenSecretManager.java:createPassword(307)) - Creating password for appattempt_1616340089879_4264_000001
+2021-03-22 10:51:17,052 INFO  amlauncher.AMLauncher (AMLauncher.java:launch(126)) - Done launching container Container: [ContainerId: container_e12_1616340089879_4264_01_000001, NodeId: tbds-172-29-0-125:45454, NodeHttpAddress: tbds-172-29-0-125:8042, Resource: <memory:4096, vCores:1>, Priority: 0, Token: Token { kind: ContainerToken, service: 172.29.0.125:45454 }, ] for AM appattempt_1616340089879_4264_000001
+2021-03-22 10:51:17,052 INFO  attempt.RMAppAttemptImpl (RMAppAttemptImpl.java:handle(796)) - appattempt_1616340089879_4264_000001 State change from ALLOCATED to LAUNCHED
+2021-03-22 10:51:17,677 INFO  rmcontainer.RMContainerImpl (RMContainerImpl.java:handle(410)) - container_e12_1616340089879_4264_01_000001 Container Transitioned from ACQUIRED to RUNNING
+2021-03-22 10:51:22,251 INFO  ipc.Server (Server.java:saslProcess(1316)) - Auth successful for appattempt_1616340089879_4264_000001 (auth:SIMPLE)
+2021-03-22 10:51:22,253 INFO  resourcemanager.ApplicationMasterService (ApplicationMasterService.java:registerApplicationMaster(274)) - AM registration appattempt_1616340089879_4264_000001
+2021-03-22 10:51:22,253 INFO  resourcemanager.RMAuditLogger (RMAuditLogger.java:logSuccess(127)) - USER=tdwhive	IP=172.29.0.125	OPERATION=Register App Master	TARGET=ApplicationMasterService	RESULT=SUCCESS	APPID=application_1616340089879_4264	APPATTEMPTID=appattempt_1616340089879_4264_000001
+2021-03-22 10:51:22,253 INFO  attempt.RMAppAttemptImpl (RMAppAttemptImpl.java:handle(796)) - appattempt_1616340089879_4264_000001 State change from LAUNCHED to RUNNING
+2021-03-22 10:51:22,253 INFO  rmapp.RMAppImpl (RMAppImpl.java:handle(715)) - application_1616340089879_4264 State change from ACCEPTED to RUNNING
+```
+
 这说明啥呢，说明RMAppAttempt对象还没有变launched状态，AM的注册就来了。这会导致什么问题？
 
 问题就是[yarn-3260](https://issues.apache.org/jira/browse/YARN-3260)提到的，简要而言就是有如下图两个异步过程，一个过程\(左边\)是向缓存中添加token ,一个过程（右边）是从缓存中获取token。如果获取的过程比添加的过程要早执行，则会拿不到token。最麻烦的是获取的过程在获取返回之后，会执行编码（getEncoded）操作
@@ -90,4 +108,6 @@ jira 提到的解决办法就是不要在allocated到launched过程去保存toke
 ```text
 jira hadoop  org.apache.hadoop.mapreduce.v2.app.rm.RMCommunicator: Exception while registering java.lang.NullPointerException: java.lang.NullPointerException at org.apache.hadoop.yarn.server.resourcemanager.ApplicationMasterService.registerApplicationMaster(ApplicationMasterService.java:296)
 ```
+
+为什么会慢呢？无非是两个原因：1.中央异步处理器缓存队列处理比较慢，或者队列事件比较多。二. AMLaunchedTransition 处理过程慢。具体原因还要具体分析
 
